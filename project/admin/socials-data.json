@@ -1,0 +1,13 @@
+{
+    "instagram": {
+        "image": "images/instagram.jpg",
+        "date": "June 15, 2023",
+        "link": "https://instagram.com/kevin6667032"
+    },
+    "github": {
+        "repo": "portfolio-site",
+        "activity": "Fixed contact form\nUpdated mobile styles",
+        "date": "June 15, 2023",
+        "link": "https://github.com/kevinsgithub"
+    }
+}
