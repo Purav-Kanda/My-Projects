@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Flying H1 Animation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      h1 {
+        width: 300px;
+        padding: 10px;
+        text-align: center;
+        border-radius: 10px;
+        background-color: blue;
+        color: yellow;
+        position: absolute;
+        font-family: monospace;
+        font-weight: bold;
+        font-size: 50px;
+      }
+      /* Vertical positioning for each H1 element */
+      #fly1 { top: 100px; }
+      #fly2 { top: 200px; }
+      #fly3 { top: 300px; }
+      #fly4 { top: 400px; }
+    </style>
+    <script>
+      window.addEventListener("load", function(event) {
+        // Gather the H1 elements into an array
+        let elements = [
+          document.getElementById("fly1"),
+          document.getElementById("fly2"),
+          document.getElementById("fly3"),
+          document.getElementById("fly4")
+        ];
+        
+        // Define which direction each element will fly in:
+        // alternating "left" and "right"
+        let directions = ["left", "right", "left", "right"];
+        
+        // The target left value for centering the element
+        let targetLeft = (window.innerWidth - 300) / 2;
+        
+        // How many pixels the element moves per frame
+        let speed = 10;
+        
+        // Index of the element currently being animated
+        let currentIndex = 0;
+        
+        // Holds the timer id for the animation
+        let timerId = null;
+        
+        // Set the initial left positions for each element:
+        // if coming from left, start off-screen to the left;
+        // if from right, start off-screen to the right.
+        for (let i = 0; i < elements.length; i++) {
+          if (directions[i] === "left") {
+            elements[i].style.left = "-350px";
+          } else {
+            elements[i].style.left = window.innerWidth + "px";
+          }
+        }
+        
+        // The updateAnimation function moves the current element
+        function updateAnimation() {
+          let elem = elements[currentIndex];
+          let currentLeft = parseFloat(elem.style.left);
+          
+          // If the element is coming from the left, move it rightwards
+          if (directions[currentIndex] === "left") {
+            if (currentLeft < targetLeft) {
+              currentLeft += speed;
+              if (currentLeft > targetLeft) currentLeft = targetLeft;
+              elem.style.left = currentLeft + "px";
+            } else {
+              // The element has reached the center; stop its timer
+              clearInterval(timerId);
+              currentIndex++;
+              if (currentIndex < elements.length) {
+                // Start the next element’s animation after a short delay
+                setTimeout(function() {
+                  timerId = setInterval(updateAnimation, 16);
+                }, 300);
+              }
+            }
+          } else { // Coming from the right: move it leftwards
+            if (currentLeft > targetLeft) {
+              currentLeft -= speed;
+              if (currentLeft < targetLeft) currentLeft = targetLeft;
+              elem.style.left = currentLeft + "px";
+            } else {
+              clearInterval(timerId);
+              currentIndex++;
+              if (currentIndex < elements.length) {
+                setTimeout(function() {
+                  timerId = setInterval(updateAnimation, 16);
+                }, 300);
+              }
+            }
+          }
+        }
+        
+        // Create a button that will trigger the animation
+        let btn = document.createElement("button");
+        btn.textContent = "Start Animation";
+        btn.style.position = "absolute";
+        btn.style.top = "70%";
+        btn.style.left = "50%";
+        btn.style.transform = "translateX(-50%)";
+        document.body.appendChild(btn);
+        
+        // When the button is clicked, reset the positions and start animating
+        btn.addEventListener("click", function() {
+          // Reset index for sequential animation
+          currentIndex = 0;
+          // Reset each element's starting position
+          for (let i = 0; i < elements.length; i++) {
+            if (directions[i] === "left") {
+              elements[i].style.left = "-350px";
+            } else {
+              elements[i].style.left = window.innerWidth + "px";
+            }
+          }
+          // Start animating the first element
+          timerId = setInterval(updateAnimation, 16);
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1 id="fly1">JavaScript</h1>
+    <h1 id="fly2">is</h1>
+    <h1 id="fly3">Really</h1>
+    <h1 id="fly4">Cool!</h1>
+  </body>
+</html>

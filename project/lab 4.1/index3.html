@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lottery App</title>
+  <style>
+    /* 让页面内容居中铺满整个屏幕 */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    body {
+      display: flex;               /* 采用弹性布局 */
+      flex-direction: column;      /* 垂直方向排列 */
+      align-items: center;         /* 水平方向居中 */
+      justify-content: center;     /* 垂直方向居中 */
+      min-height: 100vh;           /* 确保主体内容占满可视高度 */
+      background-color: #f7f7f7;   /* 淡灰色背景，可自定义 */
+      font-family: sans-serif;
+    }
+
+    /* 容器：包裹所有游戏元素（标题、按钮、球区域、分数等） */
+    .game-container {
+      width: 600px;
+      /* 在更宽的屏幕上可适当调大或调小 */
+      text-align: center;          /* 在容器内部让文字类元素居中 */
+      background-color: #fff;      /* 白底 */
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-top: 0;
+    }
+
+    /* 基本样式：抽到的“球”以小方块或小图片预览的形式显示 */
+    .ball {
+      width: 50px;
+      height: 50px;
+      float: left;                 /* 浮动，让它们可以自动换行堆叠 */
+      margin: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border-radius: 5px;
+      /* 用背景图替代纯色 */
+      background-size: contain;    /* 让图片适应容器 */
+      background-repeat: no-repeat;
+      background-position: center;
+      /* 如果要在球上显示分数文字，可根据需要调整文字颜色 */
+      color: #333;
+    }
+
+    /* 清除浮动 */
+    #ballsContainer {
+      clear: both;        
+      margin-top: 20px;
+      min-height: 60px;   /* 给一个最小高度，以免没有球时高度太小 */
+    }
+
+    #scoreDisplay {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    /* 重新开始按钮 默认隐藏，游戏结束后显示 */
+    #restartBtn {
+      display: none;
+    }
+
+    /* 简单处理一下按钮的样式 */
+    button {
+      margin: 5px;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-container">
+    <h1>Lottery App</h1>
+
+    <!-- 按钮区：抽球、停止、重新开始 -->
+    <button id="pickBallBtn">Pick Ball</button>
+    <button id="stopBtn">Stop</button>
+    <button id="restartBtn">Restart</button>
+
+    <!-- 显示抽到的球 -->
+    <div id="ballsContainer"></div>
+
+    <!-- 显示分数 -->
+    <div id="scoreDisplay">Score: 0</div>
+  </div>
+
+  <!-- JS 文件 -->
+  <script src="lottery.js"></script>
+</body>
+</html>

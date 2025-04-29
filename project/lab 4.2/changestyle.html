@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Style Changer</title>
+  <style>
+    /* Basic page styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container {
+      background-color: #fff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      max-width: 500px;
+      width: 100%;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #hello {
+      font-size: 24px;
+      text-align: center;
+      margin: 20px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+    select, input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .button-group {
+      text-align: center;
+      margin-top: 20px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      margin: 5px;
+      cursor: pointer;
+    }
+    button#changeStyle {
+      background-color: #28a745;
+      color: #fff;
+    }
+    button#resetStyle {
+      background-color: #dc3545;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Style Changer</h1>
+    <p id="hello">Hello World</p>
+    <div class="form-group">
+      <label for="property">Select style property:</label>
+      <select id="property">
+        <option value="color">Color</option>
+        <option value="fontSize">Font Size</option>
+        <option value="backgroundColor">Background Color</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="value">Enter new value:</label>
+      <input type="text" id="value" placeholder="e.g., red, 24px, #f0f0f0">
+    </div>
+    <div class="button-group">
+      <button id="changeStyle">Change Style</button>
+      <button id="resetStyle">Reset Style</button>
+    </div>
+  </div>
+  <script>
+    const helloElement = document.getElementById('hello');
+    const propertySelect = document.getElementById('property');
+    const valueInput = document.getElementById('value');
+    const changeStyleButton = document.getElementById('changeStyle');
+    const resetStyleButton = document.getElementById('resetStyle');
+
+    // Save the original style to allow resetting
+    const originalStyle = helloElement.getAttribute('style') || '';
+
+    changeStyleButton.addEventListener('click', () => {
+      const property = propertySelect.value;
+      const value = valueInput.value.trim();
+      if (value === '') {
+        alert('Please enter a new value for the style!');
+        return;
+      }
+      helloElement.style[property] = value;
+    });
+
+    resetStyleButton.addEventListener('click', () => {
+      helloElement.setAttribute('style', originalStyle);
+      valueInput.value = '';
+    });
+  </script>
+</body>
+</html>

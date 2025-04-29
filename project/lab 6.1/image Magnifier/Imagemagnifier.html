@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>图像放大镜示例</title>
+  <style>
+    /* 让 html 和 body 占满整个屏幕，且去除默认外边距 */
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    /* 使用 Flex 布局居中内容 */
+    body {
+      display: flex;
+      justify-content: center;  /* 水平居中 */
+      align-items: center;      /* 垂直居中 */
+    }
+    /* 外层容器，相对定位，便于放大镜绝对定位 */
+    .image-container {
+      position: relative;
+      display: inline-block;
+    }
+    /* 小图样式 */
+    #small-image {
+      display: block;
+    }
+    /* 放大镜窗口样式 */
+    #magnifier {
+      position: absolute;
+      width: 200px;            /* 放大镜窗口宽度 */
+      height: 200px;           /* 放大镜窗口高度 */
+      border: 2px solid #333;  /* 边框样式，可自定义 */
+      border-radius: 50%;      /* 制作成圆形放大镜 */
+      display: none;           /* 默认隐藏 */
+      overflow: hidden;        /* 隐藏超出区域 */
+      pointer-events: none;    /* 不阻断鼠标事件 */
+      background-repeat: no-repeat;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="image-container">
+    <!-- 小图：默认显示 -->
+    <img id="small-image" src="../img/smallimg.jpeg" alt="小图" width="400" height="300">
+    <!-- 放大镜窗口：背景图使用大图 -->
+    <div id="magnifier"></div>
+  </div>
+
+  <script>
+    // 等待页面加载完成
+    window.onload = function() {
+      var smallImage = document.getElementById('small-image');
+      var magnifier = document.getElementById('magnifier');
+
+      // 大图的 URL（请确保该路径正确）
+      var largeImageUrl = '../img/smallimg.jpeg';
+
+      // 设置放大镜 div 的背景图为大图
+      magnifier.style.backgroundImage = 'url(' + largeImageUrl + ')';
+
+      // 假设我们已知大图的实际尺寸（例如大图是 800x600）
+      var largeImageWidth = 800;
+      var largeImageHeight = 600;
+
+      // 放大镜窗口尺寸
+      var magnifierWidth = magnifier.offsetWidth;
+      var magnifierHeight = magnifier.offsetHeight;
+
+      var containerRect = smallImage.getBoundingClientRect();
+
+      // 鼠标进入小图时显示放大镜
+      smallImage.addEventListener('mouseenter', function(e) {
+        magnifier.style.display = 'block';
+        // 重新获取容器的位置信息（防止窗口尺寸或滚动位置变化）
+        containerRect = smallImage.getBoundingClientRect();
+      });
+
+      // 鼠标移动时更新放大镜位置和背景偏移
+      smallImage.addEventListener('mousemove', function(e) {
+        // 计算鼠标在小图内的位置（相对容器左上角）
+        var x = e.clientX - containerRect.left;
+        var y = e.clientY - containerRect.top;
+
+        // 计算小图与大图的比例
+        var ratioX = largeImageWidth / smallImage.width;
+        var ratioY = largeImageHeight / smallImage.height;
+
+        // 计算大图中鼠标对应的位置
+        var largeX = x * ratioX;
+        var largeY = y * ratioY;
+
+        // 将放大镜窗口设置在鼠标附近（使窗口中心大致在鼠标位置）
+        var magnifierLeft = x - magnifierWidth / 2;
+        var magnifierTop = y - magnifierHeight / 2;
+        magnifier.style.left = magnifierLeft + 'px';
+        magnifier.style.top = magnifierTop + 'px';
+
+        /* 
+          调整放大镜的背景位置：
+          需要将背景图偏移，使得大图中 largeX, largeY 所在的点显示在放大镜窗口的中心。
+          计算公式：背景偏移 = -（大图中对应位置 - 放大镜窗口的一半尺寸）
+        */
+        var bgPosX = - (largeX - magnifierWidth / 2);
+        var bgPosY = - (largeY - magnifierHeight / 2);
+        magnifier.style.backgroundPosition = bgPosX + 'px ' + bgPosY + 'px';
+
+        // 同时设置背景大小，以确保大图按照正确比例显示
+        magnifier.style.backgroundSize = largeImageWidth + 'px ' + largeImageHeight + 'px';
+      });
+
+      // 鼠标离开小图时隐藏放大镜
+      smallImage.addEventListener('mouseleave', function() {
+        magnifier.style.display = 'none';
+      });
+    }
+  </script>
+
+</body>
+</html>

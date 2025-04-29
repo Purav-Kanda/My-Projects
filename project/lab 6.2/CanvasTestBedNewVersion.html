@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Test Bed</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <style type="text/css">
+        #testCanvas {
+            background-color: silver;
+            margin: 30px;
+        }
+        body {
+            text-align: center;
+            color: silver;
+            background-color: rgb(53, 66, 29);
+        }
+    </style>
+</head>
+<body>
+    <h1>Canvas Test Bed 4</h1>
+    <canvas id="testCanvas" width="400" height="400"></canvas>
+    <br>
+    <input type="button" value="Checker Board">
+    <input type="button" value="House">
+    <input type="button" value="Car">
+    <input type="button" value="Stars">
+    <input type="button" value="Clean All">
+    <script>
+        window.addEventListener("load", function () {
+            const canvas = document.getElementById('testCanvas');
+            const ctx = canvas.getContext('2d');
+
+            // Global state variables for the checkerboard animation
+            let checkerboard = false;
+            let isCheckerAnimating = false;
+            let checkerReversed = false;
+            let checkerInterval = null;
+
+            // Other drawing state variables (houses, cars, stars)
+            let houses = [];  // Each element: { x: number, hasCar: boolean }
+            let nextHouseX = 10;
+            let cars = [];
+            let stars = [];
+
+            // Bind button events
+            document.querySelector('input[value="Checker Board"]').addEventListener('click', drawCheckerboard);
+            document.querySelector('input[value="House"]').addEventListener('click', drawHouse);
+            document.querySelector('input[value="Car"]').addEventListener('click', drawCar);
+            document.querySelector('input[value="Stars"]').addEventListener('click', drawStars);
+            document.querySelector('input[value="Clean All"]').addEventListener('click', cleanAll);
+
+            // Redraw everything on the canvas
+            function redrawAll() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw the checkerboard if enabled
+                if (checkerboard) {
+                    for (let i = 0; i < 8; i++) {
+                        for (let j = 0; j < 8; j++) {
+                            let color;
+                            // Use the reverse flag to decide which color goes in which cell
+                            if ((i + j) % 2 === 0) {
+                                color = checkerReversed ? 'black' : 'white';
+                            } else {
+                                color = checkerReversed ? 'white' : 'black';
+                            }
+                            ctx.fillStyle = color;
+                            ctx.fillRect(j * 50, i * 50, 50, 50);
+                        }
+                    }
+                }
+
+                // Draw houses
+                houses.forEach(house => {
+                    ctx.strokeStyle = '#333';
+                    // Draw the house's body
+                    ctx.strokeRect(house.x, 250, 60, 100);
+                    // Draw the roof
+                    ctx.beginPath();
+                    ctx.moveTo(house.x, 250);
+                    ctx.lineTo(house.x + 30, 220);
+                    ctx.lineTo(house.x + 60, 250);
+                    ctx.stroke();
+                });
+
+                // Draw cars
+                cars.forEach(pos => {
+                    ctx.strokeStyle = 'blue';
+                    // Draw car body
+                    ctx.strokeRect(pos.x, pos.y, 60, 30);
+                    // Draw car wheels
+                    ctx.beginPath();
+                    ctx.arc(pos.x + 15, pos.y + 30, 8, 0, Math.PI * 2);
+                    ctx.arc(pos.x + 45, pos.y + 30, 8, 0, Math.PI * 2);
+                    ctx.stroke();
+                });
+
+                // Draw stars
+                stars.forEach(star => {
+                    ctx.fillStyle = star.color;
+                    // Draw two short lines for a star effect
+                    ctx.fillRect(star.x - 2, star.y, 5, 1);
+                    ctx.fillRect(star.x, star.y - 2, 1, 5);
+                });
+            }
+
+            // Toggle the checkerboard animation on button click
+            function drawCheckerboard() {
+                if (!isCheckerAnimating) {
+                    // Start the animation: show the checkerboard and begin toggling
+                    checkerboard = true;
+                    isCheckerAnimating = true;
+                    // Every 250ms, reverse the colors and redraw
+                    checkerInterval = setInterval(() => {
+                        checkerReversed = !checkerReversed;
+                        redrawAll();
+                    }, 250);
+                    redrawAll();
+                } else {
+                    // Stop the animation: clear the interval and hide the checkerboard
+                    clearInterval(checkerInterval);
+                    isCheckerAnimating = false;
+                    checkerboard = false;
+                    redrawAll();
+                }
+            }
+
+            function drawHouse() {
+                houses.push({ x: nextHouseX, hasCar: false });
+                nextHouseX += 70; // 60px house width + 10px gap
+                redrawAll();
+            }
+
+            function drawCar() {
+                let houseIndex = -1;
+                for (let i = houses.length - 1; i >= 0; i--) {
+                    if (!houses[i].hasCar) {
+                        houseIndex = i;
+                        break;
+                    }
+                }
+                if (houseIndex === -1) {
+                    alert("This is the last house or no house");
+                    return;
+                }
+                let houseX = houses[houseIndex].x;
+                const yPos = 360; // Position below the house
+                cars.push({ x: houseX, y: yPos });
+                houses[houseIndex].hasCar = true;
+                redrawAll();
+            }
+
+            function drawStars() {
+                // Fixed star at top-left
+                stars.push({ x: 10, y: 10, color: 'yellow' });
+                // Random star with random color
+                stars.push({
+                    x: Math.random() * 380 + 10,
+                    y: Math.random() * 100 + 10,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`
+                });
+                redrawAll();
+            }
+
+            function cleanAll() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear canvas
+                
+                // Reset all state variables
+                checkerboard = false;
+                isCheckerAnimating = false;
+                checkerReversed = false;
+                if (checkerInterval) {
+                    clearInterval(checkerInterval);
+                    checkerInterval = null;
+                }
+                houses = [];
+                nextHouseX = 10;
+                cars = [];
+                stars = [];
+                redrawAll();
+            }
+        });
+    </script>
+</body>
+</html>

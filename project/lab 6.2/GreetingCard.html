@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Greeting Card Project</title>
+    <meta name="viewport" content="width=320, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+        background: #f5f5f5;
+        text-align: center;
+      }
+      h1 {
+        margin-top: 20px;
+      }
+      /* Form styling */
+      #customForm {
+        margin: 20px;
+      }
+      input, textarea {
+        width: 90%;
+        padding: 5px;
+        margin-bottom: 10px;
+      }
+      button {
+        padding: 8px 16px;
+        font-size: 16px;
+      }
+      /* Container for our card */
+      #cardContainer {
+        width: 320px;
+        height: 480px;
+        border: 2px solid #333;
+        margin: 20px auto;
+        position: relative;
+        background: white;
+        box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
+      }
+      /* The canvas is initially hidden */
+      canvas {
+        display: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Custom Greeting Card</h1>
+    <div id="customForm">
+      <form id="cardForm">
+        <label for="eventDate">Date:</label><br>
+        <input type="date" id="eventDate" required><br>
+        <label for="eventName">Event Name:</label><br>
+        <input type="text" id="eventName" placeholder="Birthday, Anniversary, etc." required><br>
+        <label for="recipientName">Recipient's Name:</label><br>
+        <input type="text" id="recipientName" placeholder="Enter recipient's name" required><br>
+        <label for="message">Message:</label><br>
+        <textarea id="message" rows="3" placeholder="Your message here" required></textarea><br>
+        <button type="button" id="makeCardButton">Make Card</button>
+      </form>
+    </div>
+    
+    <div id="cardContainer">
+      <canvas id="cardCanvas" width="320" height="480"></canvas>
+    </div>
+
+    <script>
+      // Global state variables
+      let cardState = "front";  // "front" for the cover, "inside" for the opened card
+      let formData = {};        // to store the user's input
+
+      const makeCardButton = document.getElementById("makeCardButton");
+      const formDiv = document.getElementById("customForm");
+      const canvas = document.getElementById("cardCanvas");
+      const ctx = canvas.getContext("2d");
+
+      // Variables for the animated element on the front design:
+      let circleRadius = 20;
+      let growing = true; // Controls whether the circle is growing or shrinking
+
+      // When the user clicks "Make Card", gather data and display the card front.
+      makeCardButton.addEventListener("click", function() {
+        // Get the input values
+        formData.eventDate = document.getElementById("eventDate").value;
+        formData.eventName = document.getElementById("eventName").value;
+        formData.recipientName = document.getElementById("recipientName").value;
+        formData.message = document.getElementById("message").value;
+        
+        // Hide the form and show the canvas
+        formDiv.style.display = "none";
+        canvas.style.display = "block";
+        
+        // Set initial card state to front and start the animation loop
+        cardState = "front";
+        startAnimation();
+      });
+
+      // Draw the front of the card with custom text and an animated circle.
+      function drawFront() {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Create a simple background gradient
+        let gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+        gradient.addColorStop(0, "#ffecd2");
+        gradient.addColorStop(1, "#fcb69f");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw the custom text
+        ctx.fillStyle = "#333";
+        ctx.font = "20px sans-serif";
+        ctx.textAlign = "center";
+        ctx.fillText(formData.eventName, canvas.width/2, 60);
+        ctx.fillText(formData.eventDate, canvas.width/2, 90);
+        ctx.fillText("To: " + formData.recipientName, canvas.width/2, 120);
+        
+        // Draw an animated circle at the bottom of the card.
+        ctx.beginPath();
+        ctx.arc(canvas.width/2, canvas.height - 80, circleRadius, 0, Math.PI * 2);
+        ctx.fillStyle = "#ff6666";
+        ctx.fill();
+        ctx.closePath();
+        
+        // Update circle radius to create a growing/shrinking effect.
+        if (growing) {
+          circleRadius += 0.5;
+          if (circleRadius > 40) growing = false;
+        } else {
+          circleRadius -= 0.5;
+          if (circleRadius < 20) growing = true;
+        }
+      }
+
+      // Draw the inside design of the card.
+      function drawInside() {
+        // Clear the canvas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw a different background color
+        ctx.fillStyle = "#d0e6f7";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw a border around the card
+        ctx.strokeStyle = "#333";
+        ctx.lineWidth = 4;
+        ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+        
+        // Display the personalized message on the inside
+        ctx.fillStyle = "#333";
+        ctx.font = "18px sans-serif";
+        ctx.textAlign = "center";
+        let text = "Dear " + formData.recipientName + ",\n" + formData.message;
+        let lines = text.split("\n");
+        for (let i = 0; i < lines.length; i++) {
+          ctx.fillText(lines[i], canvas.width/2, 150 + i * 30);
+        }
+      }
+
+      // Animation loop: continuously redraw based on the current card state.
+      let animationInterval;
+      function startAnimation() {
+        if (animationInterval) clearInterval(animationInterval);
+        animationInterval = setInterval(function() {
+          if (cardState === "front") {
+            drawFront();
+          } else if (cardState === "inside") {
+            drawInside();
+          }
+        }, 16); // roughly 60 frames per second
+      }
+
+      // When the user clicks on the card, "open" it to show the inside.
+      canvas.addEventListener("click", function() {
+        if (cardState === "front") {
+          cardState = "inside";
+        }
+      });
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Catch the Rabbit</title>
+
+  <style>
+
+    #rabbit1 {
+      visibility: visible;
+    }
+    #rabbit2, #rabbit3, #rabbit4 {
+      visibility: hidden;
+    }
+
+    #noeggs, #slow {
+      visibility: hidden;
+    }
+    body {
+      text-align: center;
+      font-family: sans-serif;
+      margin-top: 50px;
+    }
+    img {
+      width: 100px;
+      cursor: pointer;
+      margin: 10px;
+    }
+    h2 {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Catch the Easter Bunny to get your egg!</h1>
+  <img src="img/rabbit.png" id="rabbit1" alt="Catch the rabbit" />
+  <img src="img/rabbit.png" id="rabbit2" alt="Catch the rabbit" />
+  <img src="img/rabbit.png" id="rabbit3" alt="Catch the rabbit" />
+  <img src="img/rabbit.png" id="rabbit4" alt="Catch the rabbit" />
+
+
+  <h2 id="noeggs">No Easter Eggs for You</h2>
+  <h2 id="slow">Humans are slow!!!</h2>
+
+
+  <script>
+    const rabbitIDs = ["rabbit1", "rabbit2", "rabbit3", "rabbit4"];
+    const rabbits = rabbitIDs.map(id => document.getElementById(id));
+
+
+    const noEggsMsg = document.getElementById("noeggs");
+    const slowMsg = document.getElementById("slow");
+
+
+    let currentIndex = 0;
+    let attempts = 0;
+
+    function moveRabbit() {
+      attempts++;
+
+      rabbits[currentIndex].style.visibility = "hidden";
+      currentIndex = (currentIndex + 1) % rabbits.length;
+      rabbits[currentIndex].style.visibility = "visible";
+
+      if (attempts === 4) {
+        noEggsMsg.style.visibility = "visible";
+      }
+      if (attempts === 20) {
+        slowMsg.style.visibility = "visible";
+      }
+    }
+
+    rabbits.forEach(rabbit => {
+      rabbit.addEventListener("mouseover", moveRabbit);
+    });
+  </script>
+</body>
+</html>

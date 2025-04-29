@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arithmetic Quiz</title>
+</head>
+<body>
+    <h1>Arithmetic Quiz</h1>
+    <script>
+        function startQuiz() {
+            let score = 0;
+            while (true) {
+                const num1 = Math.floor(Math.random() * 10) + 1;
+                const num2 = Math.floor(Math.random() * 10) + 1;
+                const correctAnswer = num1 + num2;
+                const userAnswer = prompt(`What is ${num1} + ${num2}?`);
+
+                if (userAnswer === null) {
+                    alert(`Quiz ended. Your final score: ${score}`);
+                    break;
+                }
+
+                if (parseInt(userAnswer) === correctAnswer) {
+                    score++;
+                    alert("Correct! Your score is: " + score);
+                } else {
+                    alert(`Wrong! The correct answer was ${correctAnswer}.`);
+                }
+            }
+        }
+
+        if (confirm("Do you want to start the Arithmetic Quiz?")) {
+            startQuiz();
+        }
+    </script>
+</body>
+</html>

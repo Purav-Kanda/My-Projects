@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pong Game</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <style>
+    body {
+      text-align: center;
+      background-color: rgb(53, 66, 29);
+      color: silver;
+      font-family: Arial, sans-serif;
+    }
+    #testCanvas {
+      background-color: black;
+      margin: 30px auto;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <h1>Pong Game</h1>
+  <canvas id="testCanvas" width="600" height="400"></canvas>
+  <script>
+    const canvas = document.getElementById("testCanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Load images for paddles and ball (adjust paths as needed)
+    const leftPaddleImg = new Image();
+    leftPaddleImg.src = "img/pongl.jpg";
+    const rightPaddleImg = new Image();
+    rightPaddleImg.src = "img/pongl.jpg";
+    const ballImg = new Image();
+    ballImg.src = "img/pongball.jpg";
+
+    // Load sounds (adjust paths as needed)
+    const paddleHitSound = new Audio("sounds/hitpaddle.mp3");
+    const wallHitSound = new Audio("sounds/wallhit.mp3");
+    const scoreSound = new Audio("sounds/score.wav");
+
+    // Game settings and variables
+    const paddleWidth = 10;
+    const paddleHeight = 80;
+    let leftPaddleX = 10;
+    let leftPaddleY = canvas.height/2 - paddleHeight/2;
+    let rightPaddleX = canvas.width - 10 - paddleWidth;
+    let rightPaddleY = canvas.height/2 - paddleHeight/2;
+    let leftPaddleSpeed = 0;
+    let rightPaddleSpeed = 0;
+
+    // Ball properties
+    const ballRadius = 10;
+    let ballX = canvas.width/2;
+    let ballY = canvas.height/2;
+    let ballSpeedX = 3;
+    let ballSpeedY = 3;
+
+    // Score tracking
+    let leftScore = 0;
+    let rightScore = 0;
+    const winningScore = 5;
+    let gamePaused = false;
+    let gameOver = false;
+
+    // Handle keyboard events for paddle movement
+    document.addEventListener("keydown", function(e) {
+      // Left paddle: W for up, S for down
+      if (e.key === "w" || e.key === "W") {
+        leftPaddleSpeed = -5;
+      }
+      if (e.key === "s" || e.key === "S") {
+        leftPaddleSpeed = 5;
+      }
+      // Right paddle: ArrowUp for up, ArrowDown for down
+      if (e.key === "ArrowUp") {
+        rightPaddleSpeed = -5;
+      }
+      if (e.key === "ArrowDown") {
+        rightPaddleSpeed = 5;
+      }
+    });
+
+    document.addEventListener("keyup", function(e) {
+      // When key is released, stop movement for that paddle
+      if (e.key === "w" || e.key === "W" || e.key === "s" || e.key === "S") {
+        leftPaddleSpeed = 0;
+      }
+      if (e.key === "ArrowUp" || e.key === "ArrowDown") {
+        rightPaddleSpeed = 0;
+      }
+    });
+
+    // Update paddle positions and keep them on screen
+    function movePaddles() {
+      leftPaddleY += leftPaddleSpeed;
+      rightPaddleY += rightPaddleSpeed;
+      if (leftPaddleY < 0) leftPaddleY = 0;
+      if (leftPaddleY + paddleHeight > canvas.height) leftPaddleY = canvas.height - paddleHeight;
+      if (rightPaddleY < 0) rightPaddleY = 0;
+      if (rightPaddleY + paddleHeight > canvas.height) rightPaddleY = canvas.height - paddleHeight;
+    }
+
+    // Update the ball’s position, detect collisions and score events
+    function moveBall() {
+      if (gamePaused || gameOver) return;
+      ballX += ballSpeedX;
+      ballY += ballSpeedY;
+
+      // Bounce off top and bottom walls
+      if (ballY - ballRadius < 0 || ballY + ballRadius > canvas.height) {
+        ballSpeedY = -ballSpeedY;
+        wallHitSound.play();
+      }
+
+      // Collision with left paddle
+      if (ballX - ballRadius < leftPaddleX + paddleWidth) {
+        if (ballY > leftPaddleY && ballY < leftPaddleY + paddleHeight) {
+          ballSpeedX = -ballSpeedX;
+          paddleHitSound.play();
+        }
+      }
+
+      // Collision with right paddle
+      if (ballX + ballRadius > rightPaddleX) {
+        if (ballY > rightPaddleY && ballY < rightPaddleY + paddleHeight) {
+          ballSpeedX = -ballSpeedX;
+          paddleHitSound.play();
+        }
+      }
+
+      // If ball goes off the left or right side, update score and pause game
+      if (ballX - ballRadius < 0) {
+        rightScore++;
+        scoreSound.play();
+        pauseGame();
+      }
+      if (ballX + ballRadius > canvas.width) {
+        leftScore++;
+        scoreSound.play();
+        pauseGame();
+      }
+    }
+
+    // Pause the game momentarily, check for game over, and then reset the ball
+    function pauseGame() {
+      gamePaused = true;
+      if (leftScore === winningScore || rightScore === winningScore) {
+        gameOver = true;
+      }
+      setTimeout(resetBall, 1000);
+    }
+
+    function resetBall() {
+      ballX = canvas.width/2;
+      ballY = canvas.height/2;
+      // Reverse direction so that the player who was scored on gets the ball next
+      ballSpeedX = -ballSpeedX;
+      gamePaused = false;
+    }
+
+    // Draw everything on the canvas: background, net, paddles, ball, and scores
+    function drawEverything() {
+      // Clear the canvas
+      ctx.fillStyle = "black";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Draw the net in the center
+      ctx.fillStyle = "gray";
+      for (let i = 0; i < canvas.height; i += 20) {
+        ctx.fillRect(canvas.width/2 - 1, i, 2, 10);
+      }
+
+      // Draw left paddle (using image if loaded)
+      if (leftPaddleImg.complete) {
+        ctx.drawImage(leftPaddleImg, leftPaddleX, leftPaddleY, paddleWidth, paddleHeight);
+      } else {
+        ctx.fillStyle = "white";
+        ctx.fillRect(leftPaddleX, leftPaddleY, paddleWidth, paddleHeight);
+      }
+
+      // Draw right paddle (using image if loaded)
+      if (rightPaddleImg.complete) {
+        ctx.drawImage(rightPaddleImg, rightPaddleX, rightPaddleY, paddleWidth, paddleHeight);
+      } else {
+        ctx.fillStyle = "white";
+        ctx.fillRect(rightPaddleX, rightPaddleY, paddleWidth, paddleHeight);
+      }
+
+      // Draw ball (using image if loaded)
+      if (ballImg.complete) {
+        ctx.drawImage(ballImg, ballX - ballRadius, ballY - ballRadius, ballRadius * 2, ballRadius * 2);
+      } else {
+        ctx.fillStyle = "white";
+        ctx.beginPath();
+        ctx.arc(ballX, ballY, ballRadius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // Draw scores
+      ctx.fillStyle = "white";
+      ctx.font = "20px Arial";
+      ctx.fillText(leftScore, canvas.width/4, 30);
+      ctx.fillText(rightScore, 3 * canvas.width/4, 30);
+
+      // If game over, display a winner message
+      if (gameOver) {
+        ctx.fillStyle = "yellow";
+        ctx.font = "40px Arial";
+        let winner = leftScore === winningScore ? "Left Player Wins!" : "Right Player Wins!";
+        let textWidth = ctx.measureText(winner).width;
+        ctx.fillText(winner, canvas.width/2 - textWidth/2, canvas.height/2);
+      }
+    }
+
+    // Main game loop: update positions and redraw on every animation frame
+    function gameLoop() {
+      movePaddles();
+      moveBall();
+      drawEverything();
+      if (!gameOver) {
+        requestAnimationFrame(gameLoop);
+      }
+    }
+    
+    // Start the game loop
+    gameLoop();
+  </script>
+</body>
+</html>

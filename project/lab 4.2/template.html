@@ -1,0 +1,36 @@
+<!doctype html>
+<!--
+Paragraph Generator
+Author: Banrui Fang
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Paragraph Generator</title>
+</head>
+<body>
+    <div id="content"></div>
+    
+    <script>
+        var numParagraphs = prompt("Please enter the amount of the paragraph：");
+
+        numParagraphs = parseInt(numParagraphs, 10);
+
+        if (isNaN(numParagraphs) || numParagraphs <= 0) {
+            numParagraphs = 1;
+        }
+        
+
+        var sentence = prompt("Please enter the paragraph：");
+        
+
+        var contentHTML = "";
+
+        for (var i = 0; i < numParagraphs; i++) {
+            contentHTML += "<p>" + sentence + "</p>";
+        }
+        
+        document.getElementById("content").innerHTML = contentHTML;
+    </script>
+</body>
+</html>

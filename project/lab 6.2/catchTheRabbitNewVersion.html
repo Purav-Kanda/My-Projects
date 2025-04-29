@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Catch the Rabbit</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      position: relative;
+      background-color: #f0f0f0;
+    }
+    h1 {
+      text-align: center;
+      font-family: sans-serif;
+    }
+    /* 设置兔子图片样式 */
+    #rabbit {
+      position: absolute;
+      width: 100px;
+      height: auto;
+      cursor: pointer;
+    }
+    h2 {
+      text-align: center;
+      font-family: sans-serif;
+      color: red;
+    }
+  </style>
+  <script>
+    window.addEventListener("load", function() {
+      // 创建全局的兔子对象
+      let rabbit = {
+        x: 100,             // 当前 x 位置
+        y: 100,             // 当前 y 位置
+        targetX: 100,       // 目标 x 位置
+        targetY: 100        // 目标 y 位置
+      };
+
+      // 获取兔子图片引用
+      const rabbitImg = document.getElementById("rabbit");
+
+      // 初始化兔子的位置
+      rabbitImg.style.left = rabbit.x + "px";
+      rabbitImg.style.top = rabbit.y + "px";
+
+      // 当鼠标悬停在兔子上时，设定一个新的随机目标位置
+      rabbitImg.addEventListener("mouseover", function() {
+        setNewTarget();
+      });
+
+      // 随机生成新的目标位置，确保兔子不会跑出屏幕
+      function setNewTarget() {
+        // 假设兔子图片宽度为100px，高度也大约为100px
+        const maxX = window.innerWidth - 100;
+        const maxY = window.innerHeight - 100;
+        rabbit.targetX = Math.floor(Math.random() * maxX);
+        rabbit.targetY = Math.floor(Math.random() * maxY);
+      }
+
+      // 每次调用时，让兔子的位置逐步靠近目标位置
+      function updateAnimation() {
+        const speed = 5; // 每帧移动的像素数
+
+        let dx = rabbit.targetX - rabbit.x;
+        let dy = rabbit.targetY - rabbit.y;
+
+        // 如果水平距离小于 speed，则直接到达目标位置
+        if (Math.abs(dx) < speed) {
+          rabbit.x = rabbit.targetX;
+        } else {
+          rabbit.x += (dx > 0 ? speed : -speed);
+        }
+
+        // 同理处理垂直方向
+        if (Math.abs(dy) < speed) {
+          rabbit.y = rabbit.targetY;
+        } else {
+          rabbit.y += (dy > 0 ? speed : -speed);
+        }
+
+        // 更新兔子图片的位置
+        rabbitImg.style.left = rabbit.x + "px";
+        rabbitImg.style.top = rabbit.y + "px";
+      }
+
+      // 启动动画定时器，每16毫秒调用一次 updateAnimation（约60fps）
+      setInterval(updateAnimation, 16);
+    });
+  </script>
+</head>
+<body>
+  <h1>Catch the Easter Bunny to get your egg!</h1>
+  <!-- 只保留一只兔子 -->
+  <img src="img/rabbit.webp" id="rabbit" alt="Catch the rabbit" />
+  <h2 id="noeggs">No Easter Eggs for You</h2>
+  <h2 id="slow">Humans are slow!!!</h2>
+</body>
+</html>

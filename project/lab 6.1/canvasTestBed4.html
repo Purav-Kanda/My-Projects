@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Canvas Test Bed</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <style type="text/css">
+        #testCanvas {
+            background-color: silver;
+            margin: 30px;
+        }
+        body {
+            text-align: center;
+            color: silver;
+            background-color: rgb(53, 66, 29);
+        }
+    </style>
+</head>
+<body>
+    <h1>Canvas Test Bed 4</h1>
+    <canvas id="testCanvas" width="400" height="400"></canvas>
+    <br>
+    <input type="button" value="Checker Board">
+    <input type="button" value="House">
+    <input type="button" value="Car">
+    <input type="button" value="Stars">
+    <input type="button" value="Clean All">
+    <script>
+        window.addEventListener("load", function () {
+            const canvas = document.getElementById('testCanvas');
+            const ctx = canvas.getContext('2d');
+            let checkerboard = false;
+            // 将房子记录为对象，包含 x 坐标和是否已有车的标记
+            let houses = [];  // 每个元素形如 { x: number, hasCar: boolean }
+            let nextHouseX = 10;
+            let cars = [];
+            let stars = [];
+
+            // 绑定按钮事件
+            document.querySelector('input[value="Checker Board"]').addEventListener('click', drawCheckerboard);
+            document.querySelector('input[value="House"]').addEventListener('click', drawHouse);
+            document.querySelector('input[value="Car"]').addEventListener('click', drawCar);
+            document.querySelector('input[value="Stars"]').addEventListener('click', drawStars);
+            document.querySelector('input[value="Clean All"]').addEventListener('click', cleanAll);
+
+            // 已去除鼠标移动和键盘事件（原用于控制乒乓球拍和移动形状）
+
+            function redrawAll() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // 绘制棋盘
+                if (checkerboard) {
+                    for (let i = 0; i < 8; i++) {
+                        for (let j = 0; j < 8; j++) {
+                            ctx.fillStyle = (i + j) % 2 ? 'black' : 'white';
+                            ctx.fillRect(j * 50, i * 50, 50, 50);
+                        }
+                    }
+                }
+
+                // 绘制房子
+                houses.forEach(house => {
+                    ctx.strokeStyle = '#333';
+                    // 绘制房子的主体
+                    ctx.strokeRect(house.x, 250, 60, 100);
+                    // 绘制房子的屋顶
+                    ctx.beginPath();
+                    ctx.moveTo(house.x, 250);
+                    ctx.lineTo(house.x + 30, 220);
+                    ctx.lineTo(house.x + 60, 250);
+                    ctx.stroke();
+                });
+
+                // 绘制汽车
+                cars.forEach(pos => {
+                    ctx.strokeStyle = 'blue';
+                    // 画车身
+                    ctx.strokeRect(pos.x, pos.y, 60, 30);
+                    // 画车轮
+                    ctx.beginPath();
+                    ctx.arc(pos.x + 15, pos.y + 30, 8, 0, Math.PI * 2);
+                    ctx.arc(pos.x + 45, pos.y + 30, 8, 0, Math.PI * 2);
+                    ctx.stroke();
+                });
+
+                // 绘制星星
+                stars.forEach(star => {
+                    ctx.fillStyle = star.color;
+                    ctx.fillRect(star.x - 2, star.y, 5, 1); // 横向短线
+                    ctx.fillRect(star.x, star.y - 2, 1, 5); // 纵向短线
+                });
+            }
+
+            function drawCheckerboard() {
+                checkerboard = true;
+                redrawAll();
+            }
+
+            function drawHouse() {
+                // 每次画房子时，保存房子的位置和初始状态（无车）
+                houses.push({ x: nextHouseX, hasCar: false });
+                nextHouseX += 70; // 60宽度 + 10间距
+                redrawAll();
+            }
+
+            function drawCar() {
+                // 从右向左查找还没有汽车的房子
+                let houseIndex = -1;
+                for (let i = houses.length - 1; i >= 0; i--) {
+                    if (!houses[i].hasCar) {
+                        houseIndex = i;
+                        break;
+                    }
+                }
+                if (houseIndex === -1) {
+                    alert("This is the last house or no house");
+                    return;
+                }
+                // 取得该房子的 x 坐标，汽车绘制在该位置下方
+                let houseX = houses[houseIndex].x;
+                const yPos = 360; // 房子下方的位置
+                cars.push({ x: houseX, y: yPos });
+                // 标记该房子已有汽车
+                houses[houseIndex].hasCar = true;
+                redrawAll();
+            }
+
+            function drawStars() {
+                // 左上角固定星
+                stars.push({ x: 10, y: 10, color: 'yellow' });
+                // 随机位置星（注意使用反引号形成模板字符串）
+                stars.push({
+                    x: Math.random() * 380 + 10,
+                    y: Math.random() * 100 + 10,
+                    color: `hsl(${Math.random() * 360}, 100%, 50%)`
+                });
+                redrawAll();
+            }
+
+            function cleanAll() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height); // 清空画布
+                
+                // 重置所有状态变量
+                checkerboard = false;
+                houses = [];
+                nextHouseX = 10;
+                cars = [];
+                stars = [];
+
+                // 重新绘制空白画布
+                redrawAll();
+            }
+        });
+    </script>
+</body>
+</html>

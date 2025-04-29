@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Addition Quiz with Input Validation</title>
+  <style>
+    /* 正确答案样式 */
+    .correct {
+      background-color: #d4edda;
+      border: 5px solid #28a745;
+      color: #155724;
+      font-size: 2em;
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 错误答案样式，定位改为与 .correct 一致 */
+    .invalid {
+      background-color: #f8d7da;
+      border: 5px solid #dc3545;
+      color: #721c24;
+      font-size: 1em;
+      width: 150px;
+      height: 150px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .invalid-input {
+      background-color: red;
+      border: 5px solid black;
+      color: white;
+      padding: 10px;
+    }
+
+    #emoji {
+      width: 100px;
+      height: 100px;
+      margin-top: 10px;
+    }
+  </style>
+
+  <script type="text/javascript">
+    function addition() {
+      // 随机生成两个操作数（范围：-100 到 99）
+      let op1 = Math.floor(Math.random() * 200 - 100);
+      let op2 = Math.floor(Math.random() * 200 - 100);
+
+      // 使用 prompt 弹窗提示用户输入答案
+      let userAnswer = prompt("What is " + op1 + " + " + op2 + "?");
+      let resultElement = document.getElementById("result");
+      let emojiElement = document.getElementById("emoji");
+
+      // 清除之前添加的 class
+      resultElement.className = "";
+
+      // 如果输入为空或不是数字，则提示无效输入
+      if (isNaN(userAnswer) || userAnswer.trim() === "") {
+        resultElement.innerHTML = "Invalid input! Please enter a number.";
+        resultElement.classList.add("invalid-input");
+        emojiElement.src = "../img/neutral.png";
+        return;
+      }
+
+      let correctAnswer = op1 + op2;
+
+      // 判断用户答案是否正确
+      if (parseInt(userAnswer) === correctAnswer) {
+        resultElement.innerHTML = "Correct!";
+        resultElement.classList.add("correct");
+        emojiElement.src = "../img/happy.png";
+      } else {
+        resultElement.innerHTML = "Incorrect. The correct answer is " + correctAnswer;
+        resultElement.classList.add("invalid");
+        emojiElement.src = "../img/sad.png";
+      }
+    }
+  </script>
+</head>
+
+<body style="text-align:center">
+  <!-- 显示结果的区域 -->
+  <h1 id="result"></h1>
+  <!-- 表情图片 -->
+  <img id="emoji" src="../img/happy.png" alt="emoji">
+  <!-- 添加一个按钮，点击即可启动加法测验 -->
+  <button onclick="addition()">Start Quiz</button>
+</body>
+
+</html>

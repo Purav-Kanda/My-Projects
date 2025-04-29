@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Move Circle and Display Message</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* 使用 Flex 布局使整体内容居中 */
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+    }
+
+    /* 圆圈容器 */
+    #container {
+      position: relative;
+      width: 500px;
+      height: 500px;
+      border: 10px solid black;
+      border-radius: 70px;
+      background-color: white;
+    }
+
+    /* 圆圈（使用 border-radius: 50% 保证真正的圆形） */
+    #moveme {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 100px;
+      height: 100px;
+      background-color: green;
+      border-radius: 50%;
+      border: 10px solid black;
+    }
+
+    /* 控制按钮容器，位于圆圈容器下方 */
+    #controls {
+      margin-top: 20px;
+    }
+    .btn {
+      margin: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* 消息框：固定在屏幕底部中间，显示 5 秒后自动隐藏 */
+    #messageBox {
+      display: none;
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 20px;
+      border: 2px solid black;
+      border-radius: 10px;
+      font-size: 18px;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <!-- 整体布局 -->
+  <div id="layout">
+    <!-- 圆圈所在容器 -->
+    <div id="container">
+      <div id="moveme"></div>
+    </div>
+    <!-- 控制按钮 -->
+    <div id="controls">
+      <button class="btn" onclick="moveCircleRandomly()">Random Move Circle</button>
+      <button class="btn" onclick="moveUp()">Up</button>
+      <button class="btn" onclick="moveDown()">Down</button>
+      <button class="btn" onclick="moveLeft()">Left</button>
+      <button class="btn" onclick="moveRight()">Right</button>
+    </div>
+  </div>
+
+  <!-- 消息框 -->
+  <div id="messageBox"></div>
+
+  <script>
+    // 用于记录圆圈当前位置的变量（相对于 container）
+    let posX = 0;
+    let posY = 0;
+
+    // 随机移动圆圈功能
+    function moveCircleRandomly() {
+      const circle = document.getElementById('moveme');
+      const container = document.getElementById('container');
+
+      if (confirm("Do you want to randomly move the circle?")) {
+        const maxLeft = container.clientWidth - circle.clientWidth;
+        const maxTop = container.clientHeight - circle.clientHeight;
+        const randomLeft = Math.floor(Math.random() * maxLeft);
+        const randomTop = Math.floor(Math.random() * maxTop);
+
+        // 设置圆圈的新位置
+        circle.style.left = randomLeft + 'px';
+        circle.style.top = randomTop + 'px';
+
+        // 更新当前位置变量
+        posX = randomLeft;
+        posY = randomTop;
+
+        // 显示提示消息（默认类型）
+        showMessage("The circle has been randomly moved!", 0);
+      }
+    }
+
+    // 上、下、左、右移动功能
+    function moveUp() {
+      const circle = document.getElementById('moveme');
+      const container = document.getElementById('container');
+
+      const maxTop = container.clientHeight - circle.clientHeight;
+
+      // 如果可以向上移动 20 像素
+      if (posY >= 20) {
+        posY -= 20;
+        showMessage("The circle moved up 20 pixels.", 0);
+      } else {
+        showMessage("Reached the top edge, cannot move up further!", 1);
+      }
+      circle.style.top = posY + 'px';
+    }
+
+    function moveDown() {
+      const circle = document.getElementById('moveme');
+      const container = document.getElementById('container');
+
+      const maxTop = container.clientHeight - circle.clientHeight;
+
+      // 如果可以向下移动 20 像素
+      if (posY <= maxTop - 20) {
+        posY += 20;
+        showMessage("The circle moved down 20 pixels.", 0);
+      } else {
+        showMessage("Reached the bottom edge, cannot move down further!", 1);
+      }
+      circle.style.top = posY + 'px';
+    }
+
+    function moveLeft() {
+      const circle = document.getElementById('moveme');
+      const container = document.getElementById('container');
+
+      const maxLeft = container.clientWidth - circle.clientWidth;
+
+      // 如果可以向左移动 20 像素
+      if (posX >= 20) {
+        posX -= 20;
+        showMessage("The circle moved left 20 pixels.", 0);
+      } else {
+        showMessage("Reached the left edge, cannot move left further!", 1);
+      }
+      circle.style.left = posX + 'px';
+    }
+
+    function moveRight() {
+      const circle = document.getElementById('moveme');
+      const container = document.getElementById('container');
+
+      const maxLeft = container.clientWidth - circle.clientWidth;
+
+      // 如果可以向右移动 20 像素
+      if (posX <= maxLeft - 20) {
+        posX += 20;
+        showMessage("The circle moved right 20 pixels.", 0);
+      } else {
+        showMessage("Reached the right edge, cannot move right further!", 1);
+      }
+      circle.style.left = posX + 'px';
+    }
+
+    // 让圆圈跟随鼠标移动
+    const container = document.getElementById('container');
+    const circle = document.getElementById('moveme');
+
+    container.addEventListener('mousemove', function(event) {
+      // 鼠标相对于容器左上角的坐标
+      const x = event.pageX - this.offsetLeft;
+      const y = event.pageY - this.offsetTop;
+
+      // 圆圈的半径（宽或高的一半）
+      const circleRadius = circle.clientWidth / 2;
+      const maxLeft = container.clientWidth - circle.clientWidth;
+      const maxTop = container.clientHeight - circle.clientHeight;
+
+      // 新的 left 和 top，保证圆圈中心跟随鼠标
+      let newLeft = x - circleRadius;
+      let newTop = y - circleRadius;
+
+      // 边界检查，不要让圆圈超出容器
+      if (newLeft < 0) newLeft = 0;
+      if (newLeft > maxLeft) newLeft = maxLeft;
+      if (newTop < 0) newTop = 0;
+      if (newTop > maxTop) newTop = maxTop;
+
+      // 更新圆圈的位置
+      circle.style.left = newLeft + 'px';
+      circle.style.top = newTop + 'px';
+
+      // 也更新全局位置变量，这样按钮移动也能接着这个位置
+      posX = newLeft;
+      posY = newTop;
+    });
+
+    /*
+      显示消息并在 5 秒后自动消失
+      type 参数说明：
+         type = 1：Warning (black text on yellow background, prefix "Warning:")
+         type = 2：Error (white text on red background, prefix "Error:")
+         其它值：Default (gray text on green background, no prefix)
+    */
+    function showMessage(message, type) {
+      const messageBox = document.getElementById('messageBox');
+
+      if (type === 1) {
+        messageBox.style.color = 'black';
+        messageBox.style.backgroundColor = 'yellow';
+        messageBox.innerHTML = 'Warning: ' + message;
+      } else if (type === 2) {
+        messageBox.style.color = 'white';
+        messageBox.style.backgroundColor = 'red';
+        messageBox.innerHTML = 'Error: ' + message;
+      } else {
+        messageBox.style.color = 'gray';
+        messageBox.style.backgroundColor = 'green';
+        messageBox.innerHTML = message;
+      }
+
+      messageBox.style.display = 'block';
+
+      // 5秒后自动隐藏消息框
+      setTimeout(() => {
+        messageBox.style.display = 'none';
+      }, 5000);
+    }
+  </script>
+</body>
+</html>

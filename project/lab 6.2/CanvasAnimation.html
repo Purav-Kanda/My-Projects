@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Modified Canvas Animation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <script type="text/javascript">
+    window.addEventListener("load", function(event) {
+      // Set up the canvas and context
+      let c = document.getElementById("animationCanvas");
+      let ctx = c.getContext("2d");
+
+      // Define the ball with initial properties:
+      // starts near the top left, moves down/right, full size and black.
+      let ball = {
+        x: 50,
+        y: 50,
+        xSpeed: 1,   // moves to the right
+        ySpeed: 1,   // moves downwards
+        red: 0,      // starts black (red=0)
+        radius: 50
+      };
+
+      let timerId;
+
+      // Start the animation loop at ~60fps
+      function startAnimation() {
+        timerId = setInterval(updateAnimation, 16);
+      }
+
+      // Update the animation on each frame
+      function updateAnimation() {
+        // Update the ball's position
+        ball.x += ball.xSpeed;
+        ball.y += ball.ySpeed;
+
+        // Gradually shrink the ball (but not below a radius of 1)
+        if (ball.radius > 1) {
+          ball.radius -= 0.1;
+        }
+
+        // Increase the red component from 0 up to 255 for the color transition
+        if (ball.red < 255) {
+          ball.red += 1;
+        }
+
+        // Bounce off the left/right edges:
+        if (ball.x + ball.radius >= c.width || ball.x - ball.radius <= 0) {
+          ball.xSpeed = -ball.xSpeed;
+        }
+        // Bounce off the top/bottom edges:
+        if (ball.y + ball.radius >= c.height || ball.y - ball.radius <= 0) {
+          ball.ySpeed = -ball.ySpeed;
+        }
+
+        // Clear the canvas
+        ctx.clearRect(0, 0, c.width, c.height);
+
+        // Set the fill style using the current red value (green and blue are 0)
+        ctx.fillStyle = "rgb(" + ball.red + ", 0, 0)";
+        ctx.beginPath();
+        ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.closePath();
+      }
+
+      // Kick off the animation
+      startAnimation();
+    });
+  </script>
+</head>
+<body style="text-align:center;">
+  <canvas id="animationCanvas" width="768" height="400" style="background-color:black;"></canvas>
+</body>
+</html>
