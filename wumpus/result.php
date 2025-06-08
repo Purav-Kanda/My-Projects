@@ -24,7 +24,7 @@ if ($row === false || $column === false || $row < 1 || $row > 7 || $column < 1 |
 }
 
 // Query the database to check if the Wumpus is at the specified location
-$stmt = $pdo->prepare("SELECT * FROM wumpuses WHERE row = ? AND col = ?");
+$stmt = $pdo->prepare("SELECT * FROM wumpuses WHERE 'row' = ? AND col = ?");
 $stmt->execute([$row, $column]);
 $wumpus = $stmt->fetch();
 
