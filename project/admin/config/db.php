@@ -1,8 +1,8 @@
 <?php
-$host = 'localhost';
-$dbname = 'kandap1_db';
-$username = 'kandap1_local';
-$password = ',KOt[D<J'; 
+$host = 'sql312.infinityfree.com';
+$dbname = 'if0_39187569_portfolio_db';
+$username = 'if0_39187569';
+$password = 'Pmpk132006'; 
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);

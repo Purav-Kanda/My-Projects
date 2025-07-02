@@ -155,11 +155,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                                 <i class="fas fa-tachometer-alt"></i> Dashboard
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="adminquiz.php">
-                                <i class="fas fa-question-circle"></i> Manage Quiz
-                            </a>
-                        </li>
+                      
                         <li class="nav-item">
                             <a class="nav-link" href="adminsocials.php">
                                 <i class="fas fa-share-alt"></i> Social Media
@@ -185,12 +181,7 @@ if (!isset($_SESSION['admin_logged_in'])) {
                 </div>
                 
                 <div class="dashboard-menu">
-                    <div class="dashboard-item">
-                        <i class="fas fa-question-circle"></i>
-                        <h3>Quiz Management</h3>
-                        <p>Create, edit, and manage quiz questions and answers</p>
-                        <a href="adminquiz.php">Go to Quiz</a>
-                    </div>
+                   
                     
                     <div class="dashboard-item">
                         <i class="fas fa-envelope"></i>
@@ -204,6 +195,13 @@ if (!isset($_SESSION['admin_logged_in'])) {
                         <h3>About Page</h3>
                         <p>Edit the content of your website's about page</p>
                         <a href="aboutedit.php">Edit About Page</a>
+                    </div>
+
+                     <div class="dashboard-item">
+                        <i class="fas fa-info-circle"></i>
+                        <h3>Manage Socials</h3>
+                        <p>Edit the content of your website's Social page</p>
+                        <a href="adminsocials.php">Edit Social Page</a>
                     </div>
                 </div>
             </main>

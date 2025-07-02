@@ -204,11 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <i class="fas fa-tachometer-alt"></i> Dashboard
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="adminquiz.php">
-                                <i class="fas fa-question-circle"></i> Manage Quiz
-                            </a>
-                        </li>
+                      
                         <li class="nav-item">
                             <a class="nav-link active" href="adminsocials.php">
                                 <i class="fas fa-share-alt"></i> Social Media
@@ -239,21 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <form method="POST">
-            <div class="mb-3">
-                <label class="form-label">Instagram Image Path</label>
-                <input type="text" class="form-control" name="instagram_image" 
-                       value="<?= htmlspecialchars($socialData['instagram_image']) ?>" required>
-                <?php if (file_exists($socialData['instagram_image'])): ?>
-                    <img src="<?= $socialData['instagram_image'] ?>" class="img-preview">
-                <?php endif; ?>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">Instagram Post Date</label>
-                <input type="text" class="form-control" name="instagram_date" 
-                       value="<?= htmlspecialchars($socialData['instagram_date']) ?>" required>
-            </div>
-
+           
             <div class="mb-3">
                 <label class="form-label">GitHub Repository</label>
                 <input type="text" class="form-control" name="github_repo" 

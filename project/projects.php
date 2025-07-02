@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- 
-Author:ByteME
+Author:Purav Kanda
 projects.php - Project Portfolio Page
 Displays Kevin's projects with filtering capabilities
 Uses JavaScript for dynamic filtering and rendering
@@ -10,31 +10,20 @@ Uses JavaScript for dynamic filtering and rendering
     <!-- Standard meta tags and title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kevin's Projects</title>
+    <title>Purav's Projects</title>
       <!-- CSS imports -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <!-- Main site header with navigation -->
-    <header>
-        <h1>Kevin's Project Portfolio</h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="projects.php" class="active">Projects</a></li>
-                <li><a href="socials.php">Socials</a></li>
-                <li><a href="contact.php">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+    
     <!-- Main content area -->    
     <main>
         <!-- Project filters section -->
         <section class="projects-intro">
-            <h2>My Development Projects</h2>
-            <p>Explore my collection of interactive web applications and coding projects</p>
+        <h1 style="font-size: 3em;">Projects</h1>
+        <p>Explore my collection of interactive web applications and coding projects</p>
             <!-- Filter buttons for project categories -->
             <div class="project-filters">
                 <button class="filter-btn active" data-filter="all">All Projects</button>
@@ -55,36 +44,36 @@ Uses JavaScript for dynamic filtering and rendering
         // Project data array - contains all project information
         const projects = [
             {
-                title: "Gomoku Strategy Game",
-                folder: "gomoku",
-                description: "implementation of the classic five-in-a-row strategy game",
+                title: "Memory Puzzle Game",
+                folder: "memory puzzle/Assignment2.html",
+                description: "The memory tile match game",
                 category: "game",
-                skills: ["Game AI", "Mobile First"],
+                skills: [ "random pattern","flexible design"],
                 icon: "chess-board",
-                image: "images/gomoku.jpg"
+                image: "images/memory.jpg"
             },
             {
                 title: "Lottery & Quiz",
                 folder: "lab 4.1",
-                description: "lottery functionality and arithmetic challenges",
+                description: "lottery functionality and arithmetic",
                 category: "web",
                 skills: ["JavaScript", "DOM"],
                 icon: "ticket-alt",
-                image: "images/lab41.jpg"
+                image: "images/lab4.jpg"
             },
             {
-                title: "Interactive Quiz Suite",
-                folder: "lab 4.2",
-                description: "interactive quizzes with style customization and user controls",
+                title: "Mini Games",
+                folder: "lab 4.2/changestyle.html",
+                description: "Quizzes with style and user controls",
                 category: "web",
                 skills: ["JavaScript", "CSS"],
                 icon: "question-circle",
-                image: "images/lab42.jpg"
+                image: "images/mini.jpg"
             },
             {
                 title: "Game Collection",
-                folder: "lab 5.1",
-                description: "rabbit catching, calculator, and a mini store",
+                folder: "lab 5.1/catchthrabbit.html",
+                description: "rabbit catching, calculator",
                 category: "game",
                 skills: ["JavaScript", "Game Logic"],
                 icon: "gamepad",
@@ -92,7 +81,7 @@ Uses JavaScript for dynamic filtering and rendering
             },
             {
                 title: "Canvas Experiments",
-                folder: "lab 6.1",
+                folder: "lab 6.1/animatedlogo.html",
                 description: "graffiti, games, and image tools",
                 category: "canvas",
                 skills: ["HTML5 Canvas", "JavaScript"],
@@ -101,8 +90,8 @@ Uses JavaScript for dynamic filtering and rendering
             },
             {
                 title: "Canvas Animations",
-                folder: "lab 6.2",
-                description: "interactive canvas animations and game improvements",
+                folder: "lab 6.2/animation.html",
+                description: "Canvas animations and game improvements",
                 category: "canvas",
                 skills: ["Animation", "Game Physics"],
                 icon: "running",
@@ -110,12 +99,39 @@ Uses JavaScript for dynamic filtering and rendering
             },
             {
                 title: "Guessing Game",
-                folder: "lab 7.1",
+                folder: "lab 7.1/guessing.html",
                 description: "Interactive guessing game ",
                 category: "game",
                 skills: ["Game Logic", "Canvas"],
                 icon: "dice",
-                image: "images/lab71.jpg"
+                image: "images/guess.webp"
+            },
+            {
+                title: "Wumpus Game",
+                folder: "wumpus/index.php",
+                description: "Classic wumpus game ",
+                category: "game",
+                skills: ["Game Logic", "HTML"],
+                icon: "dice",
+                image: "images/wumpus.webp"
+            },
+             {
+                title: "Drawing App",
+                folder: "draw/index.html",
+                description: "Drawing canvas",
+                category: "canvas",
+                skills: ["Canvas", "HTML"],
+                icon: "running",
+                image: "images/draw.webp"
+            },
+            {
+                title: "Quizz App",
+                folder: "Quizz/quiz.php",
+                description: "Editable Quizz App",
+                category: "game",
+                skills: ["PhP","AJAX", "HTML"],
+                icon: "running",
+                image: "images/quizz.jpg"
             }
         ];
         // Initialize when DOM is loaded
@@ -159,7 +175,7 @@ Uses JavaScript for dynamic filtering and rendering
                         <div class="project-skills">
                             ${project.skills.map(skill => `<span>${skill}</span>`).join('')}
                         </div>
-                        <a href="${project.folder}/" class="project-link">
+                        <a href="${project.folder}" class="project-link">
                             <i class="fas fa-folder-open"></i> Open Project
                         </a>
                     </div>

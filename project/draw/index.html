@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drawing App</title>
+    <link rel="stylesheet" href="css/drawing.css">
+</head>
+
+<body>
+    <h1>Drawing App</h1>
+    <div id="content">
+
+        <div id="tools">
+            <label>Shape:</label>
+            <select id="shape-select">
+                <option value="circle">Circle</option>
+                <option value="square">Square</option>
+                <option value="line">Line</option>
+                <option value="free">Free-Hand</option>
+            </select>
+
+            <label>Color:</label>
+            <input type="color" id="color-input" value="#000000">
+
+            <label>Size:</label>
+            <input type="range" id="size-input" min="5" max="175" value="50">
+
+            <label id="X-axis">X-axis:</label>
+            <input type="range" id="x-input" min="5" max="800" value="25">
+
+            <label id="Y-axis">Y-axis:</label>
+            <input type="range" id="y-input" min="50" max="400" value="50">
+
+            <label id="X2-axis">X2-axis:</label>
+            <input type="range" id="x2-input" min="5" max="800" value="25">
+
+            <label id="Y2-axis">Y2-axis:</label>
+            <input type="range" id="y2-input" min="50" max="400" value="50">
+
+            <button id="draw-button">Draw</button>
+
+            <button id="undo-button">Undo</button>
+
+            <button id="clear-button">Clear</button>
+
+            <button id="clearButton">Eraser</button>
+        </div>
+
+        <canvas id="drawing-canvas" width="800" height="400"></canvas>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+
+</html>

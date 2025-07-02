@@ -1,6 +1,6 @@
 <?php
 /*
-Author:ByteME
+Author:Purav Kanda
  * socials.php - Social Media Display Page
  * Fetches and displays Instagram and GitHub activity from database
  * Falls back to default data if database unavailable
@@ -63,29 +63,11 @@ try {
     </style>
 </head>
 <body>
-    <!-- Site header with navigation -->
-    <header>
-        <h1>Kevin Yang's Portfolio</h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="projects.php">Projects</a></li>
-                <li><a href="socials.php" class="active">Socials</a></li>
-                <li><a href="contact.php">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
-
+  
     <!-- Main content area -->
     <main class="container mt-4">
-        <!-- Instagram card -->
-        <div class="social-card">
-            <h2><i class="fab fa-instagram"></i> Instagram</h2>
-            <img src="<?= $socialData['instagram_image'] ?>" class="social-image">
-            <p class="text-muted mt-2">Posted: <?= $socialData['instagram_date'] ?></p>
-        </div>
-
+    <h1 style="font-size: 3em;">Socials</h1>
+      
         <!-- GitHub card -->
         <div class="social-card">
             <h2><i class="fab fa-github"></i> GitHub Activity</h2>

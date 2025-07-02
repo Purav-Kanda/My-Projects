@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once 'config/db.php';
-//Author:Purav Kanda
+//Author:ByteME
 
 $error = '';
 $username = '';
@@ -137,47 +137,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .login-btn:hover {
             background-color: #2980b9;
         }
-        .back-to-home-container {
-    text-align: center;
-    margin: 20px 0;
-}
-
-.back-to-home-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #2c3e50; /* Dark blue-gray */
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    border: 2px solid transparent;
-}
-
-.back-to-home-btn:hover {
-    background-color: #3498db; /* Bright blue on hover */
-    border-color: #2980b9;
-    transform: translateY(-2px);
-}
-
-.back-to-home-btn i {
-    margin-right: 8px;
-}
     </style>
 </head>
 <body>
-    <div class="back-to-home-container">
-    <a href="../index.php" class="back-to-home-btn">
-        <i class="fas fa-arrow-left"></i> Back to Portfolio
-    </a>
-</div>
     <div class="login-container">
         <h2>Admin Login</h2>
         
         <?php if (!empty($error)): ?>
             <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
         <?php endif; ?>
-
+        
         <form method="POST" action="login.php">
             <div class="form-group">
                 <label for="username">Username</label>

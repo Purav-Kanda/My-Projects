@@ -196,11 +196,7 @@ $messages = $pdo->query("SELECT * FROM contacts ORDER BY created_at DESC")->fetc
                                 <i class="fas fa-tachometer-alt"></i> Dashboard
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="adminquiz.php">
-                                <i class="fas fa-question-circle"></i> Manage Quiz
-                            </a>
-                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="adminsocials.php">
                                 <i class="fas fa-share-alt"></i> Social Media

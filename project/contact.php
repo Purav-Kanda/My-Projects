@@ -3,7 +3,7 @@
  * contact.php - Contact Form Page
  * Handles message submissions and displays form status
  * Uses PDO for secure database operations
- * Author:ByteME
+ * Author:Purav Kanda
  */
 require_once 'config/db.php'; // Database connection
 
@@ -44,32 +44,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Standard meta tags and title -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Kevin Yang</title>
+    <title>Contact Purav Kanda</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="js/script.js" defer></script>
 </head>
+<style>
+    .contact-block {
+  text-align: center;
+  font-family: Arial, sans-serif;
+  margin: 50px 0;
+}
+
+.contact-block .icon {
+  color: #2962ff;
+  margin-right: 8px;
+}
+
+.contact-block p {
+  font-size: 18px;
+  margin: 15px 0;
+}
+
+.social-icons {
+  margin-top: 30px;
+}
+
+.circle-icon {
+  display: inline-block;
+  background-color: #2962ff;
+  color: white;
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  margin: 0 10px;
+  border-radius: 50%;
+  font-size: 20px;
+  transition: background-color 0.3s;
+}
+
+.circle-icon:hover {
+  background-color: #0039cb;
+}
+
+</style>
 <body>
     <!-- Site header with navigation -->
-    <header>
-        <h1>Kevin Yang's Portfolio</h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="about.php">About</a></li>
-                <li><a href="projects.php">Projects</a></li>
-                <li><a href="socials.php" class="active">Socials</a></li>
-                <li><a href="contact.php">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+   
     
     <!-- Main contact form section -->
     <main>
-        <section class="contact-section">
-            <h2>Get in Touch</h2>
-            <p>Reach out to Kevin for collaborations, inquiries, or networking.</p>
+    <h1 style="font-size: 3em;">Contact Me</h1>
 
-            <!-- Form status messages -->
+        <section class="contact-section">
+            <p>Reach out to me for collaborations, inquiries, or networking.</p>
+                  <!-- Form status messages -->
             <?php if ($success): ?>
                 <div class="alert alert-success">
                     <p>Thank you! Your message has been sent successfully.</p>
@@ -97,12 +125,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 <button type="submit" class="submit-btn">Send Message</button>
             </form>
+
+            <br>
+            <br>
+
+            <p><i class="fas fa-envelope icon"></i> kandap1@mcmaster.ca</p>
+  <p><i class="fas fa-map-marker-alt icon"></i> Hamilton, Ontario, Canada</p>
+  <p><i class="fas fa-university icon"></i> McMaster University</p>
+
+  <div class="social-icons">
+    <a href="https://github.com/Purav-Kanda/" class="circle-icon"><i class="fab fa-github"></i></a>
+    <a href="https://www.linkedin.com/in/purav-kanda-971357296/" class="circle-icon"><i class="fab fa-linkedin-in"></i></a>
+    <a href="https://www.instagram.com/purav__kanda/" class="circle-icon"><i class="fab fa-instagram"></i></a>
+    <a href="mailto:kandap1@mcmaster.ca" class="circle-icon"><i class="fas fa-envelope"></i></a>
+  </div>
+  <br>
+  <br>
+      
         </section>
     </main>
     
     <!-- Site footer -->
-    <footer>
-        <p>&copy; <?php echo date('Y'); ?> Kevin Yang's Portfolio. All rights reserved.</p>
-    </footer>
 </body>
 </html>

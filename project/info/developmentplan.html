@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client_ByteMe</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a class="button" href="index.html">Home</a></li>
+                <li><a class="button" href="showcase.html">Showcase</a></li>
+                <li><a class="button" href="about.html">About Us</a></li>
+                <li><a class="button" href="project.html">Project</a></li>
+                <li><a class="button" href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h1>Development Plan for Kevin Yang’s Portfolio Hub</h1>
+            
+            <h2>1. Purpose</h2>
+            <p>The purpose of the app is to create a professional, interactive, fun, and promotional platform showcasing Kevin Yang's skills, interests, hobbies, projects, and achievements. The app will serve as a living portfolio that Kevin can maintain throughout his university life and beyond, useful for future employers, colleagues, and others interested in learning more about Kevin.</p>
+            
+            <h2>2. Major Features</h2>
+            <ul>
+                <li>Instagram Integration: Display photos from Kevin's Instagram feed.</li>
+                <li>Resume Download: Provide a downloadable PDF of Kevin’s resume.</li>
+                <li>Contact Form: Offer a straightforward way for people to reach Kevin.</li>
+                <li>Project Showcase: Link Kevin’s projects in an engaging and interactive way, including games he created.</li>
+                <li>Quiz Section: A fun quiz about Kevin, managed via the admin panel.</li>
+                <li>GitHub Integration: Showcase Kevin's coding projects from GitHub.</li>
+                <li>Admin Dashboard: Allows Kevin to manage projects, view messages, and update quizzes.</li>
+                <li>Expandable Design: Allow Kevin to easily add more projects, achievements, and updates over time.</li>
+            </ul>
+            
+            <h2>3. Data Description</h2>
+            <p>The app will use a database to store and manage information.</p>
+            <ul>
+                <li><strong>Projects Table:</strong> (id INT PRIMARY KEY, title VARCHAR(255), description TEXT, github_link VARCHAR(255), image_path VARCHAR(255)).</li>
+                <li><strong>Contact Messages Table:</strong> (id INT PRIMARY KEY, name VARCHAR(100), email VARCHAR(100), message TEXT, timestamp DATETIME).</li>
+                <li><strong>Quiz Questions Table:</strong> (id INT PRIMARY KEY, question TEXT, option_a VARCHAR(255), option_b VARCHAR(255), option_c VARCHAR(255), option_d VARCHAR(255), correct_answer CHAR(1)).</li>
+            </ul>
+            
+            <h2>4. Functions Performed by the App</h2>
+            <ul>
+                <li>View Kevin's Instagram pictures.</li>
+                <li>Download Kevin's resume.</li>
+                <li>Contact Kevin via an interactive form.</li>
+                <li>Explore and interact with showcased projects.</li>
+                <li>Take a fun quiz about Kevin.</li>
+                <li>View Kevin's GitHub projects.</li>
+                <li>Admin functionality to manage projects, messages, and quizzes.</li>
+            </ul>
+            
+            <h2>5. PHP and JavaScript Role</h2>
+            <ul>
+                <li><strong>PHP:</strong> Handles back-end logic, form submissions, data retrieval, and admin panel operations.</li>
+                <li><strong>JavaScript:</strong> Provides interactivity, handles dynamic updates, and uses AJAX for asynchronous operations.</li>
+            </ul>
+            
+            <h2>6. Team Member Roles</h2>
+            <ul>
+                <li><strong>Purav Kanda:</strong> Back-end Development - Manages PHP logic, database integration, and admin dashboard (contact section and admin interface).</li>
+                <li><strong>Dhyan Patel:</strong> Front-end Development - Works on UI/UX, interactive components, and admin functionality for the contact form.</li>
+                <li><strong>Sahil Saraf:</strong> Works on the quiz section (JavaScript/PHP functionality).</li>
+                <li><strong>Vedant Patel:</strong> Works on the projects section (JavaScript/PHP functionality).</li>
+            </ul>
+            
+            <h2>7. AJAX Implementation</h2>
+            <p>AJAX will be used in the following ways:</p>
+            <ul>
+                <li>Real-time form validation for the contact form to improve user experience.</li>
+                <li>Asynchronous quiz updates to allow users to submit answers without refreshing the page.</li>
+                <li>Dynamically loading GitHub projects without reloading the page.</li>
+                <li>Admin dashboard enhancements, allowing updates to projects and quizzes without requiring full page reloads.</li>
+            </ul>
+            
+            <h2>8. Incremental Delivery</h2>
+            <ul>
+                <li><strong>Week 1 (April 4th):</strong> Develop static pages and basic features, including web pages with design elements and basic links (Entire Team).</li>
+                <li><strong>Week 2:</strong> Set up database, contact form, and back-end logic (Purav, Dhyan).</li>
+                <li><strong>Week 3:</strong> Implement interactive features (mini-games, quiz, project showcase) (Purav, Dhyan).</li>
+                <li><strong>Week 4:</strong> Test, debug, and deploy final version (Entire Team).</li>
+            </ul>
+            
+            <h2>9. Client Feedback</h2>
+            <p>Kevin liked the design and overall structure. However, he requested an admin panel to manage projects, messages, and quizzes. This feature has been added to our plan. We will show him each increment for further feedback.</p>
+        </section>
+    </main>
+    <br>
+    <hr>
+    <section id="contact" class="section">
+        <h2>Contact Us</h2>
+        <p><strong>The Project Manager: </strong><a href="mailto:kandap1@mcmaster.ca">kandap1@mcmaster.ca</a></p>
+    </section>
+    <br>
+    <footer>
+        <p>&copy; ByteMe Inc. 2025</p>
+    </footer>
+</body>
+
+</html>

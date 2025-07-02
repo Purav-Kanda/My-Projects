@@ -1,10 +1,10 @@
 <?php
 require_once 'config/db.php';
-//Author:ByteME
+//Author:purav kanda
 // Default values
 $about_content = "I am a web developer passionate about creating innovative solutions, you can checkout some of my projects in the projects tab";
-$skills = ["PHP", "JavaScript", "HTML/CSS", "Database Management", "Python", "Java", "C++", "Haskell", "Vue.js"];
-$education = "First-year Honours Computer Science student at McMaster University. Proficient in Python, Java, C++, Haskell, HTML/CSS, and Vue.js.";
+$skills = ["PHP", "JavaScript", "HTML/CSS", "Database Management", "Python", "Java", "C", "Haskell","Ajax"];
+$education = "Second year Honours Computer Science student at McMaster University. Proficient in Python, Java, C, Haskell and HTML/CSS";
 
 // Try to fetch from database
 try {
@@ -29,6 +29,28 @@ try {
     <link rel="stylesheet" href="css/style.css">
     <!-- Page-specific styles -->
     <style>
+    .stats-bar {
+        display: flex;
+        justify-content: center;
+        gap: 4rem;
+        padding: 2rem 1rem;
+        background-color: #f9f9f9;
+        text-align: center;
+        flex-wrap: wrap;
+    }
+
+.stats-bar .stat h3 {
+  font-size: 2.5em;
+  color: #2962ff; /* Blue tone */
+  margin: 0;
+}
+
+.stats-bar .stat p {
+  margin-top: 0.4rem;
+  font-size: 1em;
+  color: #666;
+}
+
         .about-container {
             display: flex;
             gap: 40px;
@@ -107,45 +129,60 @@ try {
 </head>
 <body>
     <!-- Site header with navigation -->
-    <header>
-        <h1>About Kevin Yang</h1>
-        <nav>
-            <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="about.php" class="active">About</a></li>
-                <li><a href="projects.php">Projects</a></li>
-                <li><a href="socials.php">Socials</a></li>
-                <li><a href="contact.php">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
     <!-- Main content section -->
     <main>
-        <section>
-            <!-- Two-column about layout -->
-            <div class="about-container">
-                 <!-- Text content column -->
-                <div class="about-content">
-                    <p><?= htmlspecialchars($about_content) ?></p>
-                    <!-- Skills list section -->
-                    <div class="about-details">
-                        <h3>Skills</h3>
-                        <ul class="skills-list">
-                            <?php foreach ($skills as $skill): ?>
-                                <li><?= htmlspecialchars($skill) ?></li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <!-- Education section -->
-                        <h3>Education</h3>
-                        <p><?= htmlspecialchars($education) ?></p>
-                    </div>
-                    <!-- Resume download link -->                    
-                     <a href="resume/resume.pdf" class="download-resume" download>Review &amp; Download Resume</a>
-                </div>
-                <!-- Profile image column -->                
-                 <img src="images/kevin.jpeg" alt="Kevin Yang" class="about-image" id="profile-image">
-            </div>
-        </section>
-    </main>
+  <section>
+    <h1 style="font-size: 3em;">About Me</h1>
+    
+    <!-- Two-column layout: text + image -->
+    <div class="about-container">
+      
+      <!-- Left Column: Text content -->
+      <div class="about-content">
+        <p><?= htmlspecialchars($about_content) ?></p>
+
+        <!-- Skills -->
+        <div class="about-details">
+          <h3>Skills</h3>
+          <ul class="skills-list">
+            <?php foreach ($skills as $skill): ?>
+              <li><?= htmlspecialchars($skill) ?></li>
+            <?php endforeach; ?>
+          </ul>
+
+          <!-- Education -->
+          <h3>Education</h3>
+          <p><?= htmlspecialchars($education) ?></p>
+        </div>
+      </div>
+
+      <!-- Right Column: Profile Image -->
+      <div class="image-column">
+        <img src="images/purav.jpg" alt="Purav Kanda" class="about-image" id="profile-image">
+      </div>
+    </div>
+
+    <!-- Stats bar BELOW the two-column section -->
+    <section class="stats-bar">
+      <div class="stat">
+        <h3>2nd</h3>
+        <p>Year Student</p>
+      </div>
+     <!-- <div class="stat">
+        <h3>3.6</h3>
+        <p>GPA</p>
+      </div> -->
+      <div class="stat">
+        <h3>10+</h3>
+        <p>Projects</p>
+      </div>
+      <div class="stat">
+        <a href="resume/resume.pdf" class="download-resume" download>Review &amp; Download Resume</a>
+      </div>
+    </section>
+    
+  </section>
+</main>
+
 </body>
 </html>
