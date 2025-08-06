@@ -1,88 +1,34 @@
-Documentation for the System Monitor CLI Tool
+# Secure Password Manager CLI 🔐
 
-Description: A small C application for Linux real-time system monitoring. shows the top processes and monitors CPU and memory usage.
+![Python](https://img.shields.io/badge/Python-3.8+-blue)
+![Cryptography](https://img.shields.io/badge/Cryptography-Fernet-brightgreen)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-Documents:
+A secure command-line password manager with military-grade encryption, built for developers who value privacy.
 
-include/system_stats.h
+![Demo GIF](demo.gif) <!-- Replace with actual demo -->
 
-declares functions and structures for system statistics.
+## 🌟 Features
+- **Zero-Knowledge Security**
+  - AES-256-GCM encryption via Fernet
+  - PBKDF2 key derivation (100,000 iterations)
+  - Unique cryptographic salt per installation
+- **Intuitive CLI**
+  - Add/View/Delete credentials
+  - Master password protection
+  - Secure password generation
+- **Portable Design**
+  - Single-file implementation
+  - Cross-platform (Windows/macOS/Linux)
 
-Important functions include log_system_stats(), list_top_processes(), and get_system_stats().
+## 🚀 Quick Start
 
-include/utils.h
+### Prerequisites
+- Python 3.8+
+- pip package manager
 
-Helper roles
-
-The safe_fopen() core function
-
-The main program, src/monitor.c
-
-manages CLI arguments
-
-puts in place a live monitoring loop
-
-Use:./monitor [-c] [-p N] [-l file.log]
-
-src/system_stats.c
-
-carries out core monitoring:
-
-CPU percentage obtained from /proc/stat
-
-/proc/meminfo's memory percentage
-
-Listing processes using the ps command
-
-CSV recording
-
-src/utils.c
-
-Error-handling and safe file operations
-
-Instructions for Building:
-
-Put together: create
-
-Execute:./monitor
-
-Make it clean.
-
-CLI Preferences:
--c Display just CPU usage -p N Display the top N processes (by default, 5).
--l file Statistics are recorded in a CSV file.
-
-Format of Output: === System Monitor ===
-CPU Utilisation: XX.XX%
-Memory Utilisation: XX.XX%
-[Top procedures]
-
-Technical Information:
-
-utilises the Linux /proc filesystem
-
-Rate of refresh: 1 second
-
-Log format: timestamp, CPU percentage, and memory percentage
-
-Dependencies:
-
-GCC
-
-Linux operating system
-
-The standard C library
-
-Handling Errors:
-
-gracefully ends when a file error occurs.
-
-Verifies CLI arguments
-
-Use Case Examples:
-
-A quick check of the system:./monitor
-
-Long-term observation:./monitor -l stats.csv
-
-Troubleshooting the process:./monitor -p 10
+### Installation
+```bash
+git clone https://github.com/Purav-Kanda/My-Projects.git
+cd My-Projects/PASSWORD\ MANAGER\ CLI/
+pip install cryptography
