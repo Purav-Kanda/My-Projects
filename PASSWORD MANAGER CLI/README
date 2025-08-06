@@ -1,0 +1,22 @@
+# Secure Password Manager 🔒
+
+A command-line password manager built with Python that securely stores and encrypts passwords using AES-256 encryption.
+
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![Cryptography](https://img.shields.io/badge/Cryptography-Fernet-green)
+
+## Features ✨
+
+- 🔐 Master password protection
+- 🛡️ AES-256 encryption via Fernet
+- 🧂 Unique salt per user for key derivation
+- 📁 Encrypted password storage
+- ➕ Add, view, and manage passwords
+- 🚫 No plaintext passwords stored
+
+## Installation ⚙️
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/secure-password-manager.git
+   cd secure-password-manager
