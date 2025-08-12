@@ -1,0 +1,97 @@
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["hello", "hi", "hey", "good morning", "good afternoon", "good evening", "what's up", "yo", "hiya"],
+      "responses": ["Hello! How can I help you today?", "Hi there! Need any info?", "Hey! What can I do for you?", "Hi! How’s it going?"]
+    },
+    {
+      "tag": "cs_department",
+      "patterns": [
+        "where is the cs department",
+        "cs office location",
+        "computer science department",
+        "how to reach the cs department",
+        "cs dept address",
+        "computer science building",
+        "where is the computer science faculty",
+        "cs department location mcmaster"
+      ],
+      "responses": [
+        "The CS department is located in ITB 201, McMaster University.",
+        "You'll find the Computer Science department in ITB Room 201.",
+        "CS offices are on the 2nd floor of the Information Technology Building (ITB)."
+      ]
+    },
+    {
+      "tag": "library_hours",
+      "patterns": [
+        "library hours",
+        "when does the library close",
+        "library timing",
+        "what time is the library open",
+        "library open today",
+        "can I go to the library now",
+        "when does mills library close",
+        "library schedule"
+      ],
+      "responses": [
+        "The library is open from 8AM to 10PM on weekdays.",
+        "Library hours are 8:00 AM to 10:00 PM Monday to Friday.",
+        "The library usually opens at 8AM and closes at 10PM during weekdays."
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["thanks", "thank you", "thx", "thanks a lot", "thanks!", "thank u", "ty"],
+      "responses": ["You're welcome!", "Glad to help!", "Anytime!", "No problem!"]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["bye", "see you", "goodbye", "see ya", "talk later", "catch you later"],
+      "responses": ["Goodbye! Have a great day!", "See you later!", "Bye! Let me know if you need anything else."]
+    },
+    {
+      "tag": "contact_info",
+      "patterns": [
+        "how do I contact the cs department",
+        "cs department phone number",
+        "email for computer science department",
+        "cs office email",
+        "contact cs department"
+      ],
+      "responses": [
+        "You can email the CS department at cs@mcmaster.ca or call (905) 525-9140 ext. 27220.",
+        "Reach out to the CS department via cs@mcmaster.ca."
+      ]
+    },
+    {
+      "tag": "course_info",
+      "patterns": [
+        "tell me about compsci 1jc3",
+        "details of computer science courses",
+        "what is compsci 1md3",
+        "course info for cs classes",
+        "what are the topics in compsci 1jc3"
+      ],
+      "responses": [
+        "COMPSCI 1JC3 covers Operating Systems and the Internet, including networking, TCP/IP, and basic OS concepts.",
+        "COMPSCI 1MD3 focuses on algorithms and problem-solving in computer science using various tools and methods."
+      ]
+    },
+    {
+      "tag": "exam_schedule",
+      "patterns": [
+        "when are the exams",
+        "exam dates",
+        "when is my final exam",
+        "exam schedule mcmaster",
+        "when are midterms"
+      ],
+      "responses": [
+        "You can check your exam schedule on Mosaic under the 'Student Center' tab.",
+        "Final and midterm schedules are available on the McMaster website or in Mosaic."
+      ]
+    }
+  ]
+}
