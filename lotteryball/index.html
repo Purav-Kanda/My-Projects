@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Chapter 16 Exercise 1</title>
+</head>
+<script>
+    let a = [];
+    for (let i = 1; i <= 100; i++) {
+        let z = (Math.floor(Math.random() * 2))
+        if (z == 1) {
+            z = "red"
+        }
+        else {
+            z = "white"
+        }
+        let lottery = { color: z, value: (Math.floor(Math.random() * 100)) }
+        a.push(a[i] = lottery);
+    }
+    i=0;
+    let b =[];
+    let score = 100;
+    while (i == 0) {
+        let u = prompt("what is your guess(between 1 to 100) ,Enter no to stop playing:")
+        if (a[u]["color"] == "red") {
+            alert("thanks for playing "+ a[u]["color"]+" "+a[u]["value"]+" ")
+            score=score-a[u]["value"]
+            alert("your score is "+score)
+            i=1
+        }
+        else {
+            if (a[u] in b){
+                i = 0;
+                
+            }
+            else if(i=="no"){
+                i=1;
+            }
+            else{
+                b.push(a[u]);
+                score=score+a[u]["value"]
+                i=0
+
+            }
+
+        }
+
+    }
+
+
+</script>
+
+<body>
+    <p>Good Bye!</p>
+</body>
+
+</html>

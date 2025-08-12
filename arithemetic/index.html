@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Chapter 16 Exercise 1</title>
+</head>
+<script>
+    let i = 0;
+    while (i == 0) {
+        let z = (Math.floor(Math.random() * 201));
+        let v = (Math.floor(Math.random() * 201));
+        let y = prompt("enter the result of " + z + " - " + v + "\n");
+        if (y == z - v) {
+            i = i + 1;
+            alert("correct");
+        }
+        else {
+            alert("incorrect");
+            let c = confirm("try again")
+            if (c == true) {
+                i = 0;
+            }
+            else {
+                alert("Thanks for playing")
+                i = 1;
+            }
+        }
+
+    }
+
+</script>
+
+<body>
+    <p><strong>Arithemetic Quizz app</strong></p>
+</body>
+
+</html>

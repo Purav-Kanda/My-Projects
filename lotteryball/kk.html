@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lottery Game</title>
+</head>
+<body>
+    <script>
+        let a = [];
+        
+        for (let i = 0; i < 100; i++) {
+            let color = Math.random() < 0.5 ? "red" : "white";
+            let value = Math.floor(Math.random() * 100) + 1; 
+            a.push({ color, value });
+        }
+
+        let score = 100;
+        let guessed = [];
+
+        while (true) {
+            let u = prompt("Enter a number between 1 and 100 (or type 'no' to stop playing):");
+            
+            if (u.toLowerCase() === "no") {
+                alert("Thanks for playing! Your final score: " + score);
+                break;
+            }
+
+            let index = parseInt(u) - 1; 
+
+            if (isNaN(index) || index < 0 || index >= 100) {
+                alert("Invalid input. Please enter a number between 1 and 100.");
+                continue;
+            }
+
+            if (a[index].color === "red") {
+                alert(`Thanks for playing! You picked a red ball with value ${a[index].value}.`);
+                score -= a[index].value;
+                alert(`Your final score: ${score}`);
+                break;
+            } else {
+                if (guessed.includes(index)) {
+                    alert("You already guessed this number. Try a different one.");
+                } else {
+                    guessed.push(index);
+                    score += a[index].value;
+                    alert(`You found a white ball worth ${a[index].value}. Your new score: ${score}`);
+                }
+            }
+        }
+    </script>
+    <p>Goodbye!</p>
+</body>
+</html>
