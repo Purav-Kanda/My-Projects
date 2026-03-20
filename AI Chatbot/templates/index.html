@@ -1,14 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Campus Chatbot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .chat-container {
+      background: white;
+      width: 400px;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    .chat-box {
+      height: 250px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      background: #fafafa;
+    }
+
+    .message {
+      margin: 8px 0;
+    }
+
+    .user {
+      text-align: right;
+      color: #007bff;
+    }
+
+    .bot {
+      text-align: left;
+      color: #333;
+    }
+
+    form {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      outline: none;
+    }
+
+    input[type="text"]:focus {
+      border-color: #007bff;
+    }
+
+    button {
+      padding: 10px 15px;
+      border: none;
+      border-radius: 8px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
+
 <body>
-  <h2>Ask me something about your campus!</h2>
+
+<div class="chat-container">
+  <h2>Campus Chatbot</h2>
+
+  <div class="chat-box">
+    {% if request.method == "POST" %}
+      <div class="message user"><strong>You:</strong> {{ request.form.message }}</div>
+      <div class="message bot"><strong>Bot:</strong> {{ response }}</div>
+    {% else %}
+      <div class="message bot">Hi! Ask me anything about your campus.</div>
+    {% endif %}
+  </div>
+
   <form method="post">
-    <input type="text" name="message" placeholder="Type your question here">
+    <input 
+      type="text" 
+      name="message" 
+      placeholder="Type your question..." 
+      required
+      autofocus
+    >
     <button type="submit">Send</button>
   </form>
-  <p><strong>Bot:</strong> {{ response }}</p>
+</div>
+
 </body>
 </html>

@@ -1,3 +1,5 @@
+import nltk
+nltk.download('punkt')
 from nltk.stem import WordNetLemmatizer
 from nltk.tokenize import wordpunct_tokenize
 import string
