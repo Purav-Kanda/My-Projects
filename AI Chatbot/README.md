@@ -25,3 +25,5 @@
 ```bash
 cd projects/ai-chatbot
 python app.py
+## 📸 Demo
+![Demo](assets/demo.png)
