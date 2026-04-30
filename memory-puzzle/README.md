@@ -1,29 +1,29 @@
-
----
-
-# 5. `memory-puzzle/README.md`
-
-```markdown
 # 🧠 Memory Puzzle
 
 > A browser-based memory game that tests pattern recognition and recall ability.
 
 ---
 
+## 📸 Demo
+
+![Demo](assets/demo.png)
+
+---
+
 ## ✨ Features
 
-- 🎮 Interactive gameplay
-- 🧩 Pattern matching logic
-- 🔄 Reset functionality
-- 💡 Simple and responsive UI
+- 🎮 Interactive gameplay  
+- 🧩 Pattern matching logic  
+- 🔄 Reset functionality  
+- 💡 Simple and responsive UI  
 
 ---
 
 ## 🛠 Tech Stack
 
-- HTML
-- CSS
-- JavaScript
+- HTML  
+- CSS  
+- JavaScript  
 
 ---
 
