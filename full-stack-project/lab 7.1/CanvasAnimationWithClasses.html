@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<!--
+Canvas Animation with 500 randomly generated bouncing balls
+-->
+<html>
+
+<head>
+  <title>Canvas Animation with 500 Balls</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <script>
+    class Ball {
+      constructor(x, y, xSpeed, ySpeed) {
+        this.x = x;
+        this.y = y;
+        this.xSpeed = xSpeed;
+        this.ySpeed = ySpeed;
+        this.red = 255;
+        this.green = 0;
+        this.blue = 0;
+        this.radius = 5;
+      }
+
+      setColor(red, green, blue) {
+        this.red = red;
+        this.green = green;
+        this.blue = blue;
+      }
+
+      moveOneStep() {
+        this.x += this.xSpeed;
+        this.y += this.ySpeed;
+      }
+
+      // bounce方法：检测是否碰到墙壁，如果超出边界，则反转对应方向的速度
+      bounce(left, right, top, bottom) {
+        // 左墙检测
+        if (this.x - this.radius < left && this.xSpeed < 0) {
+          this.xSpeed = -this.xSpeed;
+        }
+        // 右墙检测
+        if (this.x + this.radius > right && this.xSpeed > 0) {
+          this.xSpeed = -this.xSpeed;
+        }
+        // 上墙检测
+        if (this.y - this.radius < top && this.ySpeed < 0) {
+          this.ySpeed = -this.ySpeed;
+        }
+        // 下墙检测
+        if (this.y + this.radius > bottom && this.ySpeed > 0) {
+          this.ySpeed = -this.ySpeed;
+        }
+      }
+
+      draw(ctx) {
+        ctx.fillStyle = "rgb(" + this.red + "," + this.green + "," + this.blue + ")";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    window.addEventListener("load", function (event) {
+      let c = document.getElementById("animationCanvas");
+      let ctx = c.getContext("2d");
+
+      // 创建500个球对象，并随机设置位置、速度和颜色
+      let balls = [];
+      for (let i = 0; i < 500; i++) {
+        // x、y确保球体完全出现在画布中
+        let x = Math.random() * (c.width - 10) + 5;
+        let y = Math.random() * (c.height - 10) + 5;
+        // 速度范围在-2到2之间
+        let xSpeed = Math.random() * 4 - 2;
+        let ySpeed = Math.random() * 4 - 2;
+        let ball = new Ball(x, y, xSpeed, ySpeed);
+        // 随机颜色：生成 0 到 255 之间的整数
+        let red = Math.floor(Math.random() * 256);
+        let green = Math.floor(Math.random() * 256);
+        let blue = Math.floor(Math.random() * 256);
+        ball.setColor(red, green, blue);
+        balls.push(ball);
+      }
+
+      let timerId;  // 定时器ID
+
+      function startAnimation() {
+        // 16毫秒大约对应 60 帧每秒
+        timerId = setInterval(updateAnimation, 16);
+        console.log("Animation Started");
+      }
+
+      // 更新动画，每一帧循环更新所有球的位置、反弹检测和绘制
+      function updateAnimation() {
+        // 清除整个画布
+        ctx.clearRect(0, 0, c.width, c.height);
+        // 遍历数组中的每个球
+        for (let ball of balls) {
+          ball.moveOneStep();
+          ball.bounce(0, c.width, 0, c.height);
+          ball.draw(ctx);
+        }
+      }
+
+      startAnimation();
+    });
+  </script>
+</head>
+
+<body style="text-align:center;">
+  <canvas id="animationCanvas" width="768" height="400" style="background-color:black;"></canvas>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Store</title>
+  <!-- Link to your external CSS file -->
+  <link rel="stylesheet" href="css/ministore.css">
+</head>
+<body>
+
+  <div class="shop-container">
+    <!-- Store sign/title -->
+    <div class="shop-title">Mini Store</div>
+
+    <!-- Display the existing products and their prices -->
+    <p>Here are the products we sell and their prices:</p>
+    <ul class="product-list">
+      <li>Milk: $3</li>
+      <li>Apple: $2</li>
+      <li>Chips: $3</li>
+      <li>Coke: $2</li>
+      <li>Cookies: $2</li>
+      <!-- Feel free to add more products here -->
+    </ul>
+
+    <!-- Input area and button -->
+    <div class="input-group">
+      <input type="text" id="itemInput" placeholder="Enter product name...">
+      <button id="addBtn">Add to Cart</button>
+    </div>
+
+    <!-- Checkout button -->
+    <button id="checkoutBtn">Checkout</button>
+
+    <!-- Shopping cart list (ordered list) -->
+    <ol id="cartList"></ol>
+
+    <!-- Total price display -->
+    <div id="totalPrice"></div>
+
+    <!-- Button that appears after checking out, to confirm payment and reset -->
+    <button id="paidBtn">Paid</button>
+  </div>
+
+  <!-- Link to your external JavaScript file -->
+  <script src="js/ministore.js"></script>
+
+</body>
+</html>

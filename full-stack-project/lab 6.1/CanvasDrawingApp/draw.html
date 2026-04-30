@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>绘画应用程序</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+    /* 工具栏样式 */
+    #toolbar {
+      padding: 10px;
+      background: #eee;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    button {
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+    canvas {
+      border: 1px solid #ccc;
+      display: block;
+      margin: 0 auto;
+    }
+    h1 {
+        text-align: center;
+        font-size: 20px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="toolbar">
+    <button id="bigCircle">Big Circle</button>
+    <button id="smallCircle">Small Circle</button>
+    <button id="bigSquare">Big Square</button>
+    <button id="smallSquare">Small Square</button>
+    <input type="color" id="colorPicker" value="#000000">
+  </div>
+  <h1>Tips: Hold down ALT to increase the brush size</h1>
+  <h1>Tips: Hold Control to erase the brush</h1>
+
+  <canvas id="drawingCanvas" width="800" height="600"></canvas>
+
+  <script>
+    // 获取画布和上下文
+    var canvas = document.getElementById('drawingCanvas');
+    var ctx = canvas.getContext('2d');
+
+    // 全局变量
+    var currentBrush = 'smallCircle';  // 默认画笔类型
+    var currentColor = document.getElementById('colorPicker').value;
+    var isDrawing = false;  // 鼠标是否按下状态
+
+    // 切换画笔类型的按钮事件监听
+    document.getElementById('bigCircle').addEventListener('click', function() {
+        currentBrush = 'bigCircle';
+    });
+    document.getElementById('smallCircle').addEventListener('click', function() {
+        currentBrush = 'smallCircle';
+    });
+    document.getElementById('bigSquare').addEventListener('click', function() {
+        currentBrush = 'bigSquare';
+    });
+    document.getElementById('smallSquare').addEventListener('click', function() {
+        currentBrush = 'smallSquare';
+    });
+
+    // 颜色选择器事件监听
+    document.getElementById('colorPicker').addEventListener('change', function(e) {
+        currentColor = e.target.value;
+    });
+
+    // 绘图函数，根据鼠标位置、当前画笔类型和状态绘制或擦除
+    function draw(e) {
+      // 计算鼠标在画布内的坐标
+      var rect = canvas.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+
+      // 根据当前画笔类型确定基础尺寸：
+      // 小圆：半径5；大圆：半径10；
+      // 小正方形：边长10（半边5）；大正方形：边长20（半边10）。
+      var radius = 0, halfSide = 0;
+      if (currentBrush === 'smallCircle') {
+          radius = 5;
+      } else if (currentBrush === 'bigCircle') {
+          radius = 10;
+      } else if (currentBrush === 'smallSquare') {
+          halfSide = 5;
+      } else if (currentBrush === 'bigSquare') {
+          halfSide = 10;
+      }
+
+      // 如果按住 alt 键，则将当前画笔的尺寸加倍
+      if (e.altKey) {
+          if (radius > 0) {
+              radius *= 2;
+          }
+          if (halfSide > 0) {
+              halfSide *= 2;
+          }
+      }
+
+      // 如果按住 ctrl 键，则使用 clearRect 擦除区域
+      if (e.ctrlKey) {
+          // 根据当前画笔尺寸确定擦除区域：以 (x, y) 为中心的正方形区域
+          if (radius > 0) {
+              // 对于圆形画笔，用直径作为正方形边长
+              var size = radius;
+              ctx.clearRect(x - size, y - size, size * 2, size * 2);
+          } else if (halfSide > 0) {
+              ctx.clearRect(x - halfSide, y - halfSide, halfSide * 2, halfSide * 2);
+          }
+          return; // 擦除时不再绘制图形
+      }
+
+      // 设置绘图颜色
+      ctx.fillStyle = currentColor;
+
+      // 绘制图形
+      if (radius > 0) {
+          // 绘制圆形
+          ctx.beginPath();
+          ctx.arc(x, y, radius, 0, 2 * Math.PI);
+          ctx.fill();
+      } else if (halfSide > 0) {
+          // 绘制正方形：确保鼠标坐标为中心
+          ctx.fillRect(x - halfSide, y - halfSide, halfSide * 2, halfSide * 2);
+      }
+    }
+
+    // 仅在鼠标按下时开始绘制
+    canvas.addEventListener('mousedown', function(e) {
+      isDrawing = true;
+      draw(e);  // 按下时也绘制一次
+    });
+
+    canvas.addEventListener('mousemove', function(e) {
+      if (isDrawing) {
+          draw(e);
+      }
+    });
+
+    canvas.addEventListener('mouseup', function(e) {
+      isDrawing = false;
+    });
+
+    canvas.addEventListener('mouseleave', function(e) {
+      isDrawing = false;
+    });
+
+    // 监听键盘事件：退格键或删除键清除整个画布（弹出确认对话框）
+    document.addEventListener('keydown', function(e) {
+      // 防止浏览器默认退格键（如返回上一页）的行为
+      if (e.key === 'Backspace' || e.key === 'Delete') {
+          e.preventDefault();
+          if (confirm('确定要清除屏幕吗？')) {
+              ctx.clearRect(0, 0, canvas.width, canvas.height);
+          }
+      }
+    });
+  </script>
+
+</body>
+</html>

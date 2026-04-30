@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<!--
+Add a function to this file to ask the user to rate their mood from 1 to 10. Then do the following:
+- change "msg" to say "Your Mood: x", where X is the number they entered. 
+- If they enter a number in the range 1 to 3, change the image to "sad.png". If the number is 8-10 change it to "happy.png". Otherwise leave it as is. 
+- Change the href attribute of "msg" so that it links to happy.com, sad.com or neutral.com as appropriate.
+Test your function from the JavaScript console.
+
+Sam Scott, McMaster University, 2025
+-->
+<html>
+    <head>
+        <title>Mood</title>
+        <meta charset="UTF-8">
+        <script>
+            function updateMood() {
+                // 提示用户输入心情评分（1到10）
+                var input = prompt("Please rate your mood from 1 to 10");
+                var mood = parseInt(input, 10);
+                
+                // 检查输入在不在range里面
+                if (isNaN(mood) || mood < 1 || mood > 10) {
+                    alert("Invalid input. Please enter a number between 1 and 10.");
+                    return;
+                }
+                
+                // 更新
+                var msgElement = document.getElementById("msg");
+                msgElement.textContent = "Your Mood: " + mood;
+                
+                // 根据评分确定使用的图片和链接
+                var imgElement = document.querySelector("img");
+                var newLink = "";
+                if (mood >= 1 && mood <= 3) {
+                    imgElement.src = "../img/sad.png";
+                    newLink = "http://sad.com";
+                } else if (mood >= 8 && mood <= 10) {
+                    imgElement.src = "../img/happy.png";
+                    newLink = "http://happy.com";
+                } else {
+                    imgElement.src = "../img/neutral.png";
+                    newLink = "http://neutral.com";
+                }
+                
+                // 更新 "msg" 链接的 href 属性
+                msgElement.href = newLink;
+            }
+        </script>
+    </head>
+    <body style="text-align:center">
+        <img src="../img/neutral.png" alt="Mood Image">
+        <h1><a id="msg" href="#">Waiting...</a></h1>
+        <!-- 添加一个按钮来调用 updateMood() 函数 -->
+        <button onclick="updateMood()">Rate Your Mood</button>
+    </body>
+</html>

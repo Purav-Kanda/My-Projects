@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gomoku Game</title>
+  <link rel="stylesheet" href="css/gomuku.css">
+</head>
+<body>
+  <!-- Intro Page -->
+  <div id="intro">
+    <h1>Welcome to Gomoku!</h1>
+    <form id="playerForm">
+      <div>
+        <label for="player1Name">Player 1 Name:</label>
+        <input type="text" id="player1Name" name="player1Name" required>
+      </div>
+      <div>
+        <label for="player1Age">Player 1 Age:</label>
+        <input type="number" id="player1Age" name="player1Age" required>
+      </div>
+      <div>
+        <label for="player1Color">Player 1 Favorite Color (Tips: Avoid having the same color as Player 2):</label>
+        <input type="color" id="player1Color" name="player1Color" required>
+      </div>
+      <div>
+        <label for="player2Name">Player 2 Name:</label>
+        <input type="text" id="player2Name" name="player2Name" required>
+      </div>
+      <div>
+        <label for="player2Age">Player 2 Age:</label>
+        <input type="number" id="player2Age" name="player2Age" required>
+      </div>
+      <div>
+        <label for="player2Color">Player 2 Favorite Color (Tips: Avoid having the same color as Player 1):</label>
+        <input type="color" id="player2Color" name="player2Color" required>
+      </div>
+      <button type="submit">Start Game</button>
+    </form>
+  </div>
+
+  <!-- Game Container -->
+  <div id="gameContainer" style="display: none;">
+    <div id="scoreboard">
+      <span id="player1Score">0</span> - <span id="player2Score">0</span>
+    </div>
+    <!-- Game board area -->
+    <div id="gameBoard"></div>
+    <div class="buttons">
+      <button id="helpBtn">Help</button>
+      <button id="exitBtn">Exit</button>
+    </div>
+    <div id="message"></div>
+    <button id="restartBtn" style="display: none;">Play Again</button>
+  </div>
+
+  <script src="js/gomuku.js"></script>
+</body>
+</html>

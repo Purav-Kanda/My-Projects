@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Team Intro Animation</title>
+    <style>
+        /* Basic styling to remove scrollbars and center the canvas */
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            overflow: hidden;
+        }
+
+        #teamCanvas {
+            display: block;
+            margin: 0 auto;
+            background: #1E90FF;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="teamCanvas" width="800" height="500"></canvas>
+
+    <script>
+        const canvas = document.getElementById('teamCanvas');
+        const ctx = canvas.getContext('2d');
+
+
+
+
+        class MovingText {
+            constructor(text, x, y, font, color, speedX, speedY) {
+                this.text = text;
+                this.x = x;
+                this.y = y;
+                this.font = font;
+                this.color = color;
+                this.speedX = speedX;
+                this.speedY = speedY;
+            }
+
+            draw() {
+                ctx.font = this.font;
+                ctx.fillStyle = this.color;
+                ctx.fillText(this.text, this.x, this.y);
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                const textWidth = ctx.measureText(this.text).width;
+                if (this.x < 0 || this.x + textWidth > canvas.width) {
+                    this.speedX *= -1;
+                }
+
+                const fontSize = parseInt(this.font, 10) || 20;
+                if (this.y - fontSize < 0 || this.y > canvas.height) {
+                    this.speedY *= -1;
+                }
+            }
+        }
+
+        class MovingImage {
+            constructor(image, x, y, width, height, speedX, speedY) {
+                this.image = image;
+                this.x = x;
+                this.y = y;
+                this.width = width;
+                this.height = height;
+                this.speedX = speedX;
+                this.speedY = speedY;
+            }
+
+            draw() {
+                ctx.drawImage(this.image, this.x, this.y, this.width, this.height);
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+
+                if (this.x < 0 || this.x + this.width > canvas.width) {
+                    this.speedX *= -1;
+                }
+                if (this.y < 0 || this.y + this.height > canvas.height) {
+                    this.speedY *= -1;
+                }
+            }
+        }
+
+
+
+        const texts = [
+            new MovingText('ByteMe', 50, 50, '50px system-ui', '#333333', 2, 0),
+            new MovingText('We Craft exceptional Websites', 200, 150, '25px system-ui', '#333333', -1, 1)
+        ];
+
+        texts[0].colors = ["red", "green", "blue", "orange", "purple"];
+        texts[0].colorIndex = 0;
+        texts[0].frameCount = 0;
+        texts[0].framesPerChange = 30;
+
+
+
+        const teamLogo = new Image();
+        teamLogo.src = 'logo/logo.jpg';
+        const images = [
+            new MovingImage(teamLogo, 400, 300, 100, 100, 1.5, -1.5)
+        ];
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+
+
+            texts.forEach(txt => {
+                txt.update();
+                txt.draw();
+            });
+
+
+            images.forEach(img => {
+                img.update();
+                img.draw();
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        teamLogo.onload = () => {
+            animate();
+        };
+    </script>
+</body>
+
+</html>

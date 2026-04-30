@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Guessing Game</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      background-color: #fff;
+      border: 2px solid #000;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      border-radius: 8px;
+      max-width: 400px;
+      width: 90%;
+    }
+    h1 {
+      text-align: center;
+      color: #000;
+      margin-bottom: 20px;
+    }
+    form {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #000;
+      border-radius: 4px;
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #000;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #333;
+    }
+    #message {
+      text-align: center;
+      font-size: 18px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Guess the Number Game</h1>
+    <form id="guess-form">
+      <label for="guess-input">Enter a number between 1 and 100:</label>
+      <input type="number" id="guess-input" min="1" max="100" required>
+      <button type="submit">Submit</button>
+    </form>
+    <div id="message"></div>
+  </div>
+
+  <script>
+    // Define the GuessingGame class
+    class GuessingGame {
+      constructor(max = 100) {
+        // Choose a random integer between 1 and max (default is 100)
+        this.number = Math.floor(Math.random() * max + 1);
+        this.guessCount = 0;  // Track the number of guesses
+      }
+      
+      // The guess method accepts a number and returns a hint string
+      guess(num) {
+        this.guessCount++;
+        if (num === this.number) {
+          return 'correct';
+        } else if (num > this.number) {
+          return 'too high';
+        } else {
+          return 'too low';
+        }
+      }
+    }
+
+    // Initialize a new game object
+    let game = new GuessingGame();
+
+    // Listen for the form submit event
+    document.getElementById("guess-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      
+      // Read the user's input
+      let input = document.getElementById("guess-input");
+      let userGuess = parseInt(input.value);
+      
+      // Get the result from the guess method
+      let result = game.guess(userGuess);
+      let message = '';
+
+      // Update the message based on the result
+      if (result === 'correct') {
+        message = `Congratulations! You guessed correctly! The game has restarted.`;
+        game = new GuessingGame();
+      } else if (game.guessCount >= 10) {
+        message = `Game over! You've made 10 incorrect guesses. The correct answer was ${game.number}. The game has restarted.`;
+        game = new GuessingGame();
+      } else {
+        message = `Your guess ${userGuess} is ${result === 'too high' ? 'too high' : 'too low'}. You've tried ${game.guessCount} times.`;
+      }
+      
+      // Display the message on the screen
+      document.getElementById("message").innerText = message;
+      
+      // Clear the input field and set focus back to it
+      input.value = '';
+      input.focus();
+    });
+  </script>
+</body>
+</html>

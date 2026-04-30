@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas Test Bed</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <style type="text/css">
+        #testCanvas {
+            background-color: silver;
+            margin: 30px;
+        }
+
+        body {
+            text-align: center;
+            color: silver;
+            background-color: rgb(53, 66, 29);
+        }
+    </style>
+    <script>
+        let x = 0;
+        let x1 = 0;
+        window.addEventListener("load", function () {
+            const c = document.getElementById("testCanvas");
+            const ctx = c.getContext("2d");
+            const size = 50;
+            function drawhouse() {
+                let y = 150;
+                ctx.strokeStyle = "black";
+                ctx.linewidth = 2;
+                ctx.strokeRect(x, y, 50, 50)
+
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(x + 25, y - 30);
+                ctx.lineTo(x + 50, y);
+                ctx.closePath();
+                ctx.stroke();
+
+                ctx.strokeRect(x + 18, y + 25, 15, 25)
+
+            }
+
+            function drawCar(x1) {
+                let y = 350;
+
+                ctx.fillStyle = "blue";
+                ctx.fillRect(x, y, 70, 30);
+                ctx.strokeRect(x, y, 70, 30);
+
+                ctx.fillStyle = "lightblue";
+                ctx.fillRect(x + 15, y - 20, 40, 20);
+                ctx.strokeRect(x + 15, y - 20, 40, 20);
+
+                ctx.fillStyle = "black";
+                ctx.beginPath();
+                ctx.arc(x + 15, y + 30, 10, 0, Math.PI * 2);
+                ctx.arc(x + 55, y + 30, 10, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            function getRandomColor() {
+                const letters = "0123456789ABCDEF";
+                let color = "#";
+                for (let i = 0; i < 6; i++) {
+                    color += letters[Math.floor(Math.random() * 16)];
+                }
+                return color;
+            }
+
+            function drawStar(x, y, color) {
+                ctx.fillStyle = color;
+                ctx.beginPath();
+                for (let i = 0; i < 5; i++) {
+                    let angle = (i * 144 * Math.PI) / 180;
+                    let xPos = x + Math.cos(angle) * 15;
+                    let yPos = y + Math.sin(angle) * 15;
+                    ctx.lineTo(xPos, yPos);
+                }
+                ctx.closePath();
+                ctx.fill();
+            }
+
+            function drawCheckerboard() {
+                for (let i = 0; i < 8; i++) {
+                    for (let j = 0; j < 8; j++) {
+                        ctx.fillStyle = (i + j) % 2 === 0 ? "black" : "white";
+                        ctx.fillRect(i * size, j * size, size, size);
+                    }
+                }
+            }
+
+            document.getElementById("button1").addEventListener("click", function () {
+                drawCheckerboard();
+            });
+
+            document.getElementById("button2").addEventListener("click", function () {
+                drawhouse(x)
+                x = x + 60;
+            })
+
+            document.getElementById("button3").addEventListener("click", function () {
+                drawCar(x1)
+                x1 = x1 + 60;
+            })
+            document.getElementById("button4").addEventListener("click", function () {
+                let x = Math.random() * c.width; 
+                let y = Math.random() * (c.height / 2);
+                let color = getRandomColor();
+                drawStar(x, y, color);
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Canvas Test Bed 4</h1>
+    <canvas id="testCanvas" width="400" height="400"></canvas>
+    <br>
+    <input type="button" value="Button 1" id="button1">
+    <input type="button" value="Button 2" id="button2">
+    <input type="button" value="Button 3" id="button3">
+    <input type="button" value="Button 4" id="button4">
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Canvas Test Bed 4</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <style>
+        #testCanvas {
+            background-color: black;
+            margin: 30px;
+        }
+        body {
+            text-align: center;
+            color: silver;
+            background-color: rgb(53, 66, 29);
+        }
+        #magnifier {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border: 2px solid white;
+            display: none;
+            background-repeat: no-repeat;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Pong Game</h1>
+    <canvas id="testCanvas" width="400" height="400"></canvas>
+    <script>
+        const canvas = document.getElementById("testCanvas");
+        const ctx = canvas.getContext("2d");
+        let paddleY = 150;
+        const paddleHeight = 80;
+        const paddleWidth = 10;
+        let ballX = 200, ballY = 200, ballSpeedX = 3, ballSpeedY = 3;
+
+        canvas.addEventListener("mousemove", function (e) {
+            const rect = canvas.getBoundingClientRect();
+            const root = document.documentElement;
+            let mouseY = e.clientY - rect.top - root.scrollTop;
+            paddleY = mouseY - paddleHeight / 2;
+        });
+
+        function drawPaddle() {
+            ctx.fillStyle = "white";
+            ctx.fillRect(10, paddleY, paddleWidth, paddleHeight);
+        }
+
+        function drawBall() {
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.arc(ballX, ballY, 10, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        function moveBall() {
+            ballX += ballSpeedX;
+            ballY += ballSpeedY;
+
+            if (ballY < 0 || ballY > canvas.height) {
+                ballSpeedY = -ballSpeedY;
+            }
+            if (ballX < 20 && ballY > paddleY && ballY < paddleY + paddleHeight) {
+                ballSpeedX = -ballSpeedX;
+            }
+            if (ballX > canvas.width) {
+                ballSpeedX = -ballSpeedX;
+            }
+        }
+
+        function gameLoop() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            drawPaddle();
+            drawBall();
+            moveBall();
+            requestAnimationFrame(gameLoop);
+        }
+        gameLoop();
+    </script>
+</body>
+
+</html>

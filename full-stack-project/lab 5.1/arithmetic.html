@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple Calculator</title>
+    <style>
+        /* Use flexbox to center content horizontally and vertically */
+        body {
+            display: flex;             /* enable flex layout */
+            flex-direction: column;    /* stack children vertically */
+            align-items: center;       /* center them horizontally */
+            justify-content: center;   /* center them vertically */
+            height: 100vh;             /* full viewport height */
+            margin: 0;                 /* remove default body margin */
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator-container {
+            text-align: center;
+            border: 1px solid #ccc;
+            padding: 20px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            margin-right: 10px;
+        }
+
+        input[type="text"] {
+            width: 80px;
+            text-align: right;
+        }
+
+        .spacer {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator-container">
+        <h1>Simple Calculator</h1>
+        <form id="calcForm">
+            <!-- First operand -->
+            <label for="operand1">Operand 1:</label>
+            <input type="text" id="operand1" oninput="calculate()" value="0">
+
+            <div class="spacer"></div>
+            
+            <!-- Radio buttons for operations -->
+            <label>
+                <input type="radio" name="operation" value="add" checked oninput="calculate()"> Add (+)
+            </label>
+            <label>
+                <input type="radio" name="operation" value="sub" oninput="calculate()"> Subtract (-)
+            </label>
+            <label>
+                <input type="radio" name="operation" value="mul" oninput="calculate()"> Multiply (×)
+            </label>
+            <label>
+                <input type="radio" name="operation" value="div" oninput="calculate()"> Divide (÷)
+            </label>
+            <label>
+                <input type="radio" name="operation" value="mod" oninput="calculate()"> Modulus (%)
+            </label>
+
+            <div class="spacer"></div>
+
+            <!-- Second operand -->
+            <label for="operand2">Operand 2:</label>
+            <input type="text" id="operand2" oninput="calculate()" value="0">
+
+            <div class="spacer"></div>
+
+            <!-- Result display (read-only) -->
+            <label for="result">Result = </label>
+            <input type="text" id="result" readonly>
+        </form>
+    </div>
+
+    <script>
+        function calculate() {
+            const operand1 = parseFloat(document.getElementById("operand1").value) || 0;
+            const operand2 = parseFloat(document.getElementById("operand2").value) || 0;
+
+            // Get the selected operation
+            const operations = document.getElementsByName("operation");
+            let operationValue = "add"; // default
+            for (let op of operations) {
+                if (op.checked) {
+                    operationValue = op.value;
+                    break;
+                }
+            }
+
+            let result;
+            switch (operationValue) {
+                case "add":
+                    result = operand1 + operand2;
+                    break;
+                case "sub":
+                    result = operand1 - operand2;
+                    break;
+                case "mul":
+                    result = operand1 * operand2;
+                    break;
+                case "div":
+                    // Avoid division by zero
+                    result = operand2 === 0 ? "Error: Division by 0" : operand1 / operand2;
+                    break;
+                case "mod":
+                    // Avoid modulo by zero
+                    result = operand2 === 0 ? "Error: Division by 0" : operand1 % operand2;
+                    break;
+                default:
+                    result = "Unknown operation";
+            }
+
+            // Update the result field
+            document.getElementById("result").value = result;
+        }
+    </script>
+</body>
+</html>

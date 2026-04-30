@@ -1,0 +1,102 @@
+/* Make the entire content centered (horizontal & vertical) */
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Vertically center */
+    align-items: center;     /* Horizontally center */
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+  
+  /* Container styling */
+  .shop-container {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    width: 360px;
+    text-align: center;
+  }
+  
+  /* Store sign/title */
+  .shop-title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Existing products list */
+  .product-list {
+    text-align: left;
+    margin-bottom: 15px;
+  }
+  .product-list li {
+    line-height: 1.6;
+  }
+  
+  /* Input area styling */
+  .input-group {
+    margin-bottom: 10px;
+  }
+  .input-group input[type="text"] {
+    width: 140px;
+    padding: 5px;
+    font-size: 14px;
+  }
+  .input-group button {
+    margin-left: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  /* Shopping cart list */
+  ol {
+    text-align: left;
+    padding-left: 20px;
+    margin: 10px 0;
+  }
+  li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  .cart-item {
+    margin-right: 10px;
+  }
+  .delete-btn {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 3px 6px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* Display the total price */
+  #totalPrice {
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    color: #2c3e50;
+  }
+  
+  /* Hide the "Paid" button by default */
+  #paidBtn {
+    margin-top: 10px;
+    display: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: #2ecc71;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+  }
+  

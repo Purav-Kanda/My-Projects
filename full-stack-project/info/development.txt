@@ -1,0 +1,114 @@
+Kevin’s Portfolio Hub Development Plan
+1. High-Level Description
+Purpose of the App:
+Kevin’s Portfolio Hub will be an interactive web platform designed to showcase Kevin Yang’s academic and professional accomplishments, skills, and personal interests. The app will provide an easy-to-navigate interface for students, potential employers, colleagues, and general visitors to explore Kevin’s projects, take quizzes, and contact him.
+
+User Journey:
+
+Homepage: Visitors are introduced to the app with an overview of Kevin’s background, interests, and recent projects.
+
+Projects Showcase: Users can explore Kevin’s portfolio, which dynamically loads content from the database.
+
+Quizzes: Interactive mini-games will be available to engage users, with questions stored in the database and updated regularly.
+
+Contact Form: Users can fill out a contact form to reach Kevin, with submissions stored in the database.
+
+PHP and JavaScript Functions:
+
+PHP: Handles backend functionality such as storing form submissions in MySQL, retrieving project data from the database, and managing the admin interface.
+
+JavaScript: Powers the interactive features like quizzes, dynamic loading of content for projects, and form validation.
+
+Database Structure:
+
+Users Table:
+
+Columns: id (INT, AUTO_INCREMENT), name (VARCHAR), email (VARCHAR), message (TEXT), timestamp (DATETIME).
+
+Projects Table:
+
+Columns: id (INT, AUTO_INCREMENT), title (VARCHAR), description (TEXT), image_url (VARCHAR), date (DATE).
+
+Quizzes Table:
+
+Columns: id (INT, AUTO_INCREMENT), question (TEXT), answer (VARCHAR), options (TEXT), difficulty (INT).
+
+Admin Features:
+
+Admin Dashboard: Kevin will have the ability to log in and manage projects, messages, and quiz content.
+
+Authentication: A secure login system will be implemented for Kevin to access the admin dashboard.
+
+2. Team Member Roles (Updated for Balanced Workload):
+Arian:
+
+Role: Work on the contact form (PHP, MySQL), and admin interface (PHP, JavaScript).
+
+Responsibilities: Set up the backend to handle contact form submissions and manage database interactions. Develop the admin interface where Kevin can view messages and manage projects.
+
+Sahil:
+
+Role: Develop the quiz functionality (JavaScript, PHP).
+
+Responsibilities: Create dynamic quiz questions and answers, integrate JavaScript for interactivity, and handle backend logic using PHP to store and retrieve quiz data.
+
+Vedant:
+
+Role: Handle project showcase features and dynamic loading of content (JavaScript, PHP).
+
+Responsibilities: Create the dynamic display of projects from the database and ensure the content is easily updatable. Use JavaScript to fetch and display project data and PHP to manage backend data operations.
+
+Dhyan:
+
+Role: Work on authentication system and admin login (PHP, MySQL).
+
+Responsibilities: Implement a secure authentication system for Kevin to log in to the admin interface. Ensure proper session management and access control for the admin dashboard.
+
+3. Increments
+The following deliverables are planned for the next stages of development:
+
+Increment: April 4 (Basic Functionality - Setup and Initial Pages)
+This increment focuses on setting up the foundational structure of the website and ensuring the core components are in place. The main goal is to have a working skeleton of the app, including some database tables, basic web pages, and a basic user interface.
+
+Deliverables and Task Breakdown:
+1. Database Setup (Responsibility: Arian, Dhyan)
+Deliverable: Create the basic database structure, including necessary tables such as:
+
+Users Table: Stores contact form submissions (columns: id, name, email, message, timestamp).
+
+Projects Table: Stores portfolio projects (columns: id, title, description, image_url, date).
+
+Quizzes Table: Stores quiz questions (columns: id, question, answer, options, difficulty).
+
+2. Basic Web Pages (Responsibility: Vedant, Sahil)
+Deliverable: Develop the basic structure of the website. This includes:
+
+Home Page: A clean, professional landing page that welcomes users and introduces Kevin.
+
+Showcase Page: A basic page that will later showcase the portfolio projects (can be static for now).
+
+About Us Page: Basic introduction to the client, Kevin Yang.
+
+Contact Page: A simple form to submit messages (no backend processing for now, just the frontend structure).
+
+3. Basic Navigation and Layout (Responsibility: Vedant, Sahil)
+Deliverable: Implement the site’s main navigation bar (Home, About Us, Projects, Contact). Ensure that the layout is responsive and looks good on both desktop and mobile devices.
+
+4. Contact Form Structure (Responsibility: Arian)
+Deliverable: Set up the contact form on the contact page. This form should contain fields like Name, Email, and Message, but without backend functionality for submission yet.
+
+5. Basic Admin Interface (UI/UX) (Responsibility: Dhyan)
+Deliverable: Design the skeleton for the admin interface where Kevin can manage projects later on. This is just a placeholder UI with login functionality but no backend operations yet.
+
+6. CSS and Design (Basic Styling) (Responsibility: All Team Members)
+Deliverable: Apply basic styling to make the website clean, professional, and responsive. Ensure the layout is mobile-friendly, using a simple color palette (e.g., white, gray, blue).
+4. Client Feedback
+The following feedback from Kevin has been incorporated into the plan:
+
+Feedback: "The navigation and design are great, but I'd like a way to update my projects easily."
+
+Response: Implementing an admin dashboard where Kevin can manage projects and messages easily.
+
+Feedback: "I’d love some interactive features."
+
+Response: Adding a quiz section to engage users, making the platform more interactive and fun.
