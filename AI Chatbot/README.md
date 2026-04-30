@@ -4,6 +4,12 @@
 
 ---
 
+## 📸 Demo
+
+![Demo](assets/demo.png)
+
+---
+
 ## ✨ Features
 
 - 💬 Terminal-based interaction
@@ -25,5 +31,3 @@
 ```bash
 cd projects/ai-chatbot
 python app.py
-## 📸 Demo
-![Demo](assets/demo.png)
