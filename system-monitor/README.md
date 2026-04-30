@@ -1,24 +1,33 @@
-# System Monitor CLI Tool 🖥️📊
+# 📊 System Monitor
 
-![Linux](https://img.shields.io/badge/Linux-FCC624?logo=linux&logoColor=black)
-![C](https://img.shields.io/badge/C-00599C?logo=c&logoColor=white)
-![CLI](https://img.shields.io/badge/CLI-Tool-brightgreen)
+> A Python-based system monitoring tool that logs CPU and memory usage into a CSV file for analysis.
 
-A lightweight C application for real-time Linux system monitoring, featuring process tracking and resource utilization metrics.
+---
 
-![System Monitor Demo](demo.gif) *(example placeholder - add your actual demo gif)*
+## 📸 Demo
 
-## Features ✨
-- Real-time CPU/Memory monitoring
-- Top process listing
-- CSV logging capability
-- Configurable refresh rate
-- Lightweight (~2MB memory footprint)
+![Demo](assets/demo.png)
 
-## Installation ⚙️
+---
 
-### Build from Source
+## ✨ Features
+
+- 📈 Tracks CPU usage  
+- 🧠 Tracks memory usage  
+- 🗂 Logs system data into CSV file  
+- ⚡ Lightweight and simple CLI tool  
+
+---
+
+## 🛠 Tech Stack
+
+- Python  
+- CSV file handling  
+
+---
+
+## ⚙️ How to Run
+
 ```bash
-git clone https://github.com/yourusername/system-monitor.git
-cd system-monitor
-make
+cd projects/system-monitor
+python main.py
