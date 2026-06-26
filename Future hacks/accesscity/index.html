@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AccessCity — Meridian</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <header>
+    <h1>AccessCity</h1>
+    <p class="subtitle">Meridian's crowdsourced accessibility map</p>
+    <div class="header-actions">
+      <button id="reportBtn" class="btn-primary">+ Report a Barrier</button>
+      <button id="contrastToggle" class="btn-secondary" aria-pressed="false">High Contrast</button>
+    </div>
+  </header>
+
+  <main>
+    <p class="grid-hint">Click any block to see what's been reported there. Colors show how accessible each block is rated under the current filter.</p>
+
+    <div id="statsBar" class="stats-bar" aria-label="Citywide status legend and counts"></div>
+
+    <div class="layout">
+      <aside id="filterPanel" aria-label="Filter reports">
+        <h2>Filter</h2>
+
+        <label for="filterBarrierType">Barrier type
+          <select id="filterBarrierType"></select>
+        </label>
+
+        <fieldset>
+          <legend>Affected needs</legend>
+          <div id="filterNeedsCheckboxes"></div>
+        </fieldset>
+
+        <button id="clearFiltersBtn" class="btn-secondary" type="button">Clear filters</button>
+      </aside>
+
+      <section class="grid-area">
+        <div id="grid" aria-label="Meridian city grid"></div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>Built for FutureHacks 2026 — Intermediate track.</p>
+  </footer>
+
+  <div id="liveRegion" class="visually-hidden" aria-live="polite"></div>
+
+  <div id="blockModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="blockTitle">
+    <div class="modal-content">
+      <button class="modal-close" data-close aria-label="Close">&times;</button>
+      <h2 id="blockTitle"></h2>
+      <p id="blockMeta" class="muted"></p>
+      <button id="readAloudBtn" class="btn-secondary" type="button">Read aloud</button>
+      <ul id="reportList"></ul>
+      <button id="addReportHereBtn" class="btn-secondary">Add a report here</button>
+    </div>
+  </div>
+
+  <div id="reportModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="reportModalTitle">
+    <div class="modal-content">
+      <button class="modal-close" data-close aria-label="Close">&times;</button>
+      <h2 id="reportModalTitle">Report a Barrier</h2>
+      <form id="reportForm">
+
+        <label for="blockSelect">Block
+          <select id="blockSelect" required></select>
+        </label>
+
+        <label for="barrierType">Barrier type
+          <select id="barrierType" required></select>
+        </label>
+
+        <label for="severity">
+          Severity (1 = minor, 5 = completely inaccessible): <output id="severityOutput">3</output>
+          <input type="range" id="severity" min="1" max="5" value="3">
+        </label>
+
+        <fieldset>
+          <legend>Who does this affect? (select any that apply)</legend>
+          <div id="needsCheckboxes"></div>
+        </fieldset>
+
+        <label for="description">Description (optional)
+          <textarea id="description" rows="3" placeholder="e.g. The curb cut here is too steep for a wheelchair."></textarea>
+        </label>
+
+        <button type="submit" class="btn-primary">Submit report</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="data/seed.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

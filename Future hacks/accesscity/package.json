@@ -1,0 +1,12 @@
+{
+  "name": "accesscity",
+  "version": "1.0.0",
+  "description": "Crowdsourced accessibility map for Meridian -- FutureHacks 2026 submission.",
+  "private": true,
+  "scripts": {
+    "test": "node tests/dom.test.js"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  }
+}
